@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Glow
   - 
   - 
   - 
@@ -40,4 +40,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGndGlow
+    uniqueID: 1373004415
+    locked: 0
+  - name: BackGnd
+    uniqueID: 3106462285
+    locked: 0
+  - name: MidGndGlow
+    uniqueID: 3588623495
+    locked: 0
+  - name: MidGnd
+    uniqueID: 153527061
+    locked: 0
+  - name: FrontGndGlow
+    uniqueID: 4001924355
+    locked: 0
+  - name: FrontGnd
+    uniqueID: 592830225
     locked: 0
