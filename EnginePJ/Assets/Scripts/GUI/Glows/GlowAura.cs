@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GlowAura : MonoBehaviour
 {
-    public float lerpSpeed;
+    public float lerpTime;
+	[Range(0,1)]
 	public float alphaMax;
 
 	SpriteRenderer sprend;
 	Color currentCol;
+	Coroutine starter;
+	Coroutine ender;
 	// Update is called once per frame
 	private void Awake()
 	{
@@ -18,22 +21,43 @@ public class GlowAura : MonoBehaviour
 		sprend.color = currentCol;
 	}
 
-	private void Update()
+	public void OnLight()
 	{
+		if (ender != null)
+		{
+			StopCoroutine(ender);
+			ender = null;
+		}
+		if (starter == null)
+		{
+			starter = StartCoroutine(LerpAlpha(alphaMax));
+		}
 		
 	}
 
-	IEnumerator LerpAlpha()
+	public void OffLight()
 	{
-		while(currentCol.a != alphaMax)
+		if (starter != null)
 		{
+			StopCoroutine(starter);
+			starter = null;
+		}
+		if (ender == null)
+		{
+			ender = StartCoroutine(LerpAlpha(0));
+		}
+		
+	}
+
+	IEnumerator LerpAlpha(float alpha)
+	{
+		float timepass = 0f;
+		while(timepass <= lerpTime)
+		{
+			timepass += Time.deltaTime;
 			yield return null;
 			currentCol = sprend.color;
-			if(currentCol.a < alphaMax)
-			{
-				currentCol.a = Mathf.Lerp(currentCol.a, alphaMax, (currentCol.a / alphaMax) * lerpSpeed) ;
-			}
-
+			currentCol.a = Mathf.Lerp(currentCol.a, alpha, timepass / lerpTime) ;
 			sprend.color = currentCol;
 		}
 	}
