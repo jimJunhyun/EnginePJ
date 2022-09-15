@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
+	public static CursorManager instance;
+
     public float detectRange = 1;
     public int useLayer = 8;
 
-	Collider2D col;
+	public Collider2D col;
 	Collider2D prevCol;
 	// Update is called once per frame
 	private void Awake()
 	{
+		instance = this;
 		useLayer = 1 << useLayer;
 	}
 	void Update()
