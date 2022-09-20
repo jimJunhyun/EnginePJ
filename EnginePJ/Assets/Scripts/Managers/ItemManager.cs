@@ -10,36 +10,30 @@ public class ItemManager : MonoBehaviour
 {
 	public static ItemManager instance;
 
+	enum ItemIds
+	{
+		None = -1,
+		Key,
+
+	}
+
 	public struct ItemData
 	{
 		public string name { get; set;}
 		public string desc { get; set;}
-		public int num { get; set;}
 		public Sprite icon { get; set;}
-		public delegate void Useeff();
 	}
 	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>()
 	{
-		{1, new ItemData(){name = "이름", desc = "Test", num = 1} },
-		{2, new ItemData(){name = "이름2", desc = "Test2", num = 1} },
-		{3, new ItemData(){name = "이름3", desc = "Test3", num = 1} },
+		{0, new ItemData(){name = "열쇠", desc = "작은 열쇠다. 조금 닳아있다."} },
+		{1, new ItemData(){name = "이름2", desc = "Test2"} },
+		{2, new ItemData(){name = "이름3", desc = "Test3"} },
 	};
 
-	public List<ItemData> allItem = new List<ItemData>();
-	public List<ItemData> inventory = new List<ItemData>();
-	private void Awake()
-	{
-		foreach (var item in itemIdPairs.Values)
-		{
-			allItem.Add(item);
-		}
-	}
+	public List<ItemData> ItemList = new List<ItemData>();
+
 	public void GetItem(int id)
 	{
-		inventory.Add(itemIdPairs[id]);
-	}
-	public void UseItem(int id)
-	{
-
+		ItemList.Add(itemIdPairs[id]);
 	}
 }
