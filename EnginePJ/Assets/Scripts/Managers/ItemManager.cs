@@ -10,6 +10,9 @@ public class ItemManager : MonoBehaviour
 {
 	public static ItemManager instance;
 
+	public List<Sprite> icons = new List<Sprite>();
+	public List<ItemData> ItemList = new List<ItemData>();
+
 	enum ItemIds
 	{
 		None = -1,
@@ -23,17 +26,32 @@ public class ItemManager : MonoBehaviour
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
 	}
-	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>()
-	{
-		{0, new ItemData(){name = "열쇠", desc = "작은 열쇠다. 조금 닳아있다."} },
-		{1, new ItemData(){name = "이름2", desc = "Test2"} },
-		{2, new ItemData(){name = "이름3", desc = "Test3"} },
-	};
+	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>();
 
-	public List<ItemData> ItemList = new List<ItemData>();
+	
 
 	public void GetItem(int id)
 	{
 		ItemList.Add(itemIdPairs[id]);
+	}
+
+	private void Awake()
+	{
+		instance = this;
+		foreach (var item in itemIdPairs.Keys)
+		{
+			Debug.Log(item + " : " + itemIdPairs[item]);
+		}
+		itemIdPairs = new Dictionary<int, ItemData>()
+		{
+			{0, new ItemData(){name = "Key", desc = "It's a small golden key. Looks a little damaged.", icon = icons[0]} },
+			{1, new ItemData(){name = "이름2", desc = "Test2", icon = icons[1]} },
+			{2, new ItemData(){name = "이름3", desc = "Test3", icon = icons[2]} },
+		};
+		Debug.Log(itemIdPairs.Count);
+		foreach (var item in itemIdPairs.Keys)
+		{
+			Debug.Log(item + " : " + itemIdPairs[item]);
+		}
 	}
 }

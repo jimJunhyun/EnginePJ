@@ -36,4 +36,15 @@ public class PlayerCtrl : MonoBehaviour
 	{
         movable = true;
 	}
+    public void MoveDisable(float time)
+	{
+        StartCoroutine(DelayOnOff(time));
+	}
+
+    IEnumerator DelayOnOff(float time)
+	{
+        DeMove();
+        yield return new WaitForSeconds(time);
+        GoMove();
+	}
 }
