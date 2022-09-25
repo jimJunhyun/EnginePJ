@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Conversation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool isComp;
+    public float basicWait;
+    public List<string> WordScripts;
+    public List<float> TimeOffsets;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    int idx = 0;
+
+    public void NextSerif()
+	{
+        StartCoroutine(DelaySerif());
+	}
+
+    IEnumerator DelaySerif()
+	{
+        yield return basicWait + TimeOffsets[idx];
+	}
 }

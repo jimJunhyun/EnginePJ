@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-
+/// <summary>
+/// 매니저에 붙어있음.
+/// </summary>
 public class UpdateLights : MonoBehaviour
 {
+	public bool isComp;
     public Light2D source;
 
-    public void AdjustLight(float value, bool smooth = true, float trTime = 1)
+	public void AdjustLight(float value)
 	{
-		if (smooth)
-		{
-			StartCoroutine(DelayAdjust(value, trTime));
-		}
-		else
-		{
-			source.intensity = value;
-		}
-		
+		source.intensity = value;
+		isComp = true;
+	}
+
+	public void AdjustSmooth(Vector2 valAndTime)
+	{
+		StartCoroutine(DelayAdjust(valAndTime.x, valAndTime.y));
 	}
 
 	IEnumerator DelayAdjust(float value, float time)
@@ -29,5 +30,7 @@ public class UpdateLights : MonoBehaviour
 			timePassed += Time.deltaTime;
 			source.intensity = Mathf.Lerp(source.intensity, value, timePassed / time);
 		}
+
+		isComp = true;
 	}
 }
