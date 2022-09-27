@@ -24,10 +24,10 @@ public class CinemaDirector : MonoBehaviour
 		convMan = GetComponent<Conversation>();
 		tranMan = GetComponent<CameraTransition>();
 	}
-
+	//완료된 이후 진행하도록 바꿔야함.
 	private void Update()
 	{
-		if ((idx == 0 || lightMan.isComp || textMan.isComp || moveMan.isComp || convMan.isComp || tranMan.isComp) && idx < dircs.Count)
+		if ((idx == 0 || (lightMan.isComp && textMan.isComp && moveMan.isComp && convMan.isComp && tranMan.isComp)) && idx < dircs.Count)
 		{
 			lightMan.isComp = false;
 			textMan.isComp = false;

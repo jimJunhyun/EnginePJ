@@ -52,12 +52,13 @@ public class GlowAura : MonoBehaviour
 	IEnumerator LerpAlpha(float alpha)
 	{
 		float timepass = 0f;
+		Color initCol = sprend.color;
 		while(timepass <= lerpTime)
 		{
 			timepass += Time.deltaTime;
 			yield return null;
 			currentCol = sprend.color;
-			currentCol.a = Mathf.Lerp(currentCol.a, alpha, timepass / lerpTime) ;
+			currentCol.a = Mathf.Lerp(initCol.a, alpha, timepass / lerpTime) ;
 			sprend.color = currentCol;
 		}
 	}

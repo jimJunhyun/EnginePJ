@@ -9,6 +9,13 @@ public class UpdateLights : MonoBehaviour
 {
 	public bool isComp;
     public Light2D source;
+	
+	float transTime;
+
+	public void EmptyFunc()
+	{
+		isComp = true;
+	}
 
 	public void AdjustLight(float value)
 	{
@@ -16,19 +23,26 @@ public class UpdateLights : MonoBehaviour
 		isComp = true;
 	}
 
-	public void AdjustSmooth(Vector2 valAndTime)
+	public void AdjustSmooth(float val)
 	{
-		StartCoroutine(DelayAdjust(valAndTime.x, valAndTime.y));
+		StartCoroutine(DelayAdjust(val));
 	}
 
-	IEnumerator DelayAdjust(float value, float time)
+	public void SetTrans(float val)
+	{
+		transTime = val;
+		isComp = true;
+	}
+
+	IEnumerator DelayAdjust(float value)
 	{
 		float timePassed = 0;
-		while(timePassed <= time)
+		float initIts = source.intensity;
+		while(timePassed <= transTime)
 		{
 			yield return null;
 			timePassed += Time.deltaTime;
-			source.intensity = Mathf.Lerp(source.intensity, value, timePassed / time);
+			source.intensity = Mathf.Lerp(initIts, value, timePassed / transTime);
 		}
 
 		isComp = true;

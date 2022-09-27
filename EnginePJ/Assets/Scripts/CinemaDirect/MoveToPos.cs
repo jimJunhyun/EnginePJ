@@ -7,23 +7,29 @@ public class MoveToPos : MonoBehaviour
     public bool isComp;
     public List<Transform> mover;
     public List<Transform> destine;
-    public List<float> moveTime;
 
     int idx = 0;
 
-    public void StartMove()
+    public void EmptyFunc()
+    {
+        isComp = true;
+    }
+    public void StartMove(float time)
 	{
-        StartCoroutine(MoveForTime());
+        StartCoroutine(MoveForTime(time));
 	}
 
-    IEnumerator MoveForTime()
+    IEnumerator MoveForTime(float t)
 	{
         float curTime = 0;
-        while(curTime <= moveTime[idx])
+        Vector3 initpos = mover[idx].position;
+        while(curTime <= t)
 		{
-            curTime+= Time.deltaTime;
-            mover[idx].position = Vector3.Lerp(mover[idx].position, destine[idx].position, curTime / moveTime[idx]);
             yield return null;
+            mover[idx].position = Vector3.Lerp(initpos, destine[idx].position, curTime / t);
+            Debug.Log(mover[idx].position + " : " + curTime / t);
+            curTime+= Time.deltaTime;
+            
 		}
         ++idx;
         isComp = true;
