@@ -22,6 +22,10 @@ public class ShowTxtOnDark : MonoBehaviour
 	{
 		isComp = true;
 	}
+	public void DelEmpFunc(float t)
+	{
+		StartCoroutine(DelayEmpty(t));
+	}
 
 	public void FadeAppear(float time)
 	{
@@ -56,6 +60,11 @@ public class ShowTxtOnDark : MonoBehaviour
 	public void SetPostDel(float val)
 	{
 		dels.z = val;
+		isComp = true;
+	}
+	IEnumerator DelayEmpty(float t)
+	{
+		yield return new WaitForSeconds(t);
 		isComp = true;
 	}
 	IEnumerator Eraser(int leftTxtLen)

@@ -17,6 +17,10 @@ public class CameraTransition : MonoBehaviour
     {
         isComp = true;
     }
+    public void DelEmpFunc(float t)
+    {
+        StartCoroutine(DelayEmpty(t));
+    }
     private void Awake()
 	{
 		for (int i = 0; i < camPoses.Count; i++)
@@ -39,7 +43,11 @@ public class CameraTransition : MonoBehaviour
 	{
         delayTime = val;
 	}
-
+    IEnumerator DelayEmpty(float t)
+    {
+        yield return new WaitForSeconds(t);
+        isComp = true;
+    }
     IEnumerator CheckArrival()
 	{
         while(camPoses[idx].transform.position != Camera.main.transform.position)

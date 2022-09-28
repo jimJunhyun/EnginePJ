@@ -23,9 +23,13 @@ public class Conversation : MonoBehaviour
     
     int idx = 0;
 
-    public void EmptyFunc()
+	public void EmptyFunc()
+	{
+		isComp = true;
+	}
+    public void DelEmpFunc(float t)
     {
-        isComp = true;
+        StartCoroutine(DelayEmpty(t));
     }
 
     public void SetPreDel(float x)
@@ -47,7 +51,11 @@ public class Conversation : MonoBehaviour
 	{
         StartCoroutine(DelaySerif());
 	}
-
+    IEnumerator DelayEmpty(float t)
+    {
+        yield return new WaitForSeconds(t);
+        isComp = true;
+    }
     IEnumerator DelaySerif()
 	{
         wordBallon = sayers[idx].GetComponentInChildren<Image>();

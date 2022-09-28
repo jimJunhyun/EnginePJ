@@ -14,11 +14,19 @@ public class MoveToPos : MonoBehaviour
     {
         isComp = true;
     }
+    public void DelEmpFunc(float t)
+    {
+        StartCoroutine(DelayEmpty(t));
+    }
     public void StartMove(float time)
 	{
         StartCoroutine(MoveForTime(time));
 	}
-
+    IEnumerator DelayEmpty(float t)
+    {
+        yield return new WaitForSeconds(t);
+        isComp = true;
+    }
     IEnumerator MoveForTime(float t)
 	{
         float curTime = 0;
@@ -27,7 +35,6 @@ public class MoveToPos : MonoBehaviour
 		{
             yield return null;
             mover[idx].position = Vector3.Lerp(initpos, destine[idx].position, curTime / t);
-            Debug.Log(mover[idx].position + " : " + curTime / t);
             curTime+= Time.deltaTime;
             
 		}

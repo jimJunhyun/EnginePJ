@@ -17,6 +17,11 @@ public class UpdateLights : MonoBehaviour
 		isComp = true;
 	}
 
+	public void DelEmpFunc(float t)
+	{
+		StartCoroutine(DelayEmpty(t));
+	}
+
 	public void AdjustLight(float value)
 	{
 		source.intensity = value;
@@ -31,6 +36,12 @@ public class UpdateLights : MonoBehaviour
 	public void SetTrans(float val)
 	{
 		transTime = val;
+		isComp = true;
+	}
+
+	IEnumerator DelayEmpty(float t)
+	{
+		yield return new WaitForSeconds(t);
 		isComp = true;
 	}
 
