@@ -15,6 +15,7 @@ public class CinemaDirector : MonoBehaviour
 	CameraTransition tranMan;
 
 	int idx = 0;
+	bool nextProceed = false;
 
 	private void Awake()
 	{
@@ -27,7 +28,8 @@ public class CinemaDirector : MonoBehaviour
 
 	private void Update()
 	{
-		if ((idx == 0 || lightMan.isComp || textMan.isComp || moveMan.isComp || convMan.isComp || tranMan.isComp) && idx < dircs.Count)
+		nextProceed = (lightMan.isComp && textMan.isComp && moveMan.isComp && convMan.isComp && tranMan.isComp);
+		if (((idx == 0 || nextProceed) && idx < dircs.Count))
 		{
 			lightMan.isComp = false;
 			textMan.isComp = false;
@@ -38,4 +40,5 @@ public class CinemaDirector : MonoBehaviour
 			++idx;
 		}
 	}
+
 }
