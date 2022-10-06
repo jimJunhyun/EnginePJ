@@ -9,12 +9,12 @@ public class Interacts : MonoBehaviour
     public bool isInterable;
 	public float interactTime;
 
-    public void Act()
+	public void Act(System.Action onComp = null)
 	{
 		if (isInterable)
 		{
 			OnInter?.Invoke();
-			StartCoroutine(WaitInteract());
+			StartCoroutine(WaitInteract(onComp));
 		}
 	}
 
@@ -26,14 +26,15 @@ public class Interacts : MonoBehaviour
 	{
 		isInterable = true;
 	}
-	IEnumerator WaitInteract()
+	IEnumerator WaitInteract(System.Action onComp = null)
 	{
-		Debug.Log("inter start");
 		Deactivate();
 		PlayerCtrl.instance.DeMove();
 		yield return new WaitForSeconds(interactTime);
-		Debug.Log("inter end");
+		Debug.Log("!");
 		Activate();
 		PlayerCtrl.instance.GoMove();
+		onComp?.Invoke();
+		Debug.Log("E");
 	}
 }

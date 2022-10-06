@@ -22,6 +22,7 @@ public class ItemManager : MonoBehaviour
 
 	public struct ItemData
 	{
+		public int uid { get; set;}
 		public string name { get; set;}
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
@@ -30,7 +31,7 @@ public class ItemManager : MonoBehaviour
 
 	
 
-	public void GetItem(int id)
+	public void ObtainItem(int id)
 	{
 		ItemList.Add(itemIdPairs[id]);
 	}
@@ -44,9 +45,9 @@ public class ItemManager : MonoBehaviour
 		}
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{0, new ItemData(){name = "Key", desc = "It's a small golden key. Looks a little damaged.", icon = icons[0]} },
-			{1, new ItemData(){name = "이름2", desc = "Test2", icon = icons[1]} },
-			{2, new ItemData(){name = "이름3", desc = "Test3", icon = icons[2]} },
+			{0, new ItemData(){uid = 0, name = "Key", desc = "It's a small golden key. Looks a little damaged.", icon = icons[0]} },
+			{1, new ItemData(){uid = 1,name = "이름2", desc = "Test2", icon = icons[1]} },
+			{2, new ItemData(){uid = 2,name = "이름3", desc = "Test3", icon = icons[2]} },
 		};
 		Debug.Log(itemIdPairs.Count);
 		foreach (var item in itemIdPairs.Keys)

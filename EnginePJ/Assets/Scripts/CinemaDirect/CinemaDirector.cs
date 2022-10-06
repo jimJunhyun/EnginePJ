@@ -16,6 +16,7 @@ public class CinemaDirector : MonoBehaviour
 
 	int idx = 0;
 	bool nextProceed = false;
+	bool clicked;
 
 	private void Awake()
 	{
@@ -29,16 +30,26 @@ public class CinemaDirector : MonoBehaviour
 	private void Update()
 	{
 		nextProceed = (lightMan.isComp && textMan.isComp && moveMan.isComp && convMan.isComp && tranMan.isComp);
-		if (((idx == 0 || nextProceed) && idx < dircs.Count))
+		if (((idx == 0 || nextProceed || clicked) && idx < dircs.Count))
 		{
 			lightMan.isComp = false;
 			textMan.isComp = false;
 			moveMan.isComp = false;
 			convMan.isComp = false;
 			tranMan.isComp = false;
+			clicked = false;
 			dircs[idx].Invoke();
 			++idx;
 		}
+	}
+	public void WaitClick()
+	{
+		StartCoroutine(ClickDetect());
+	}
+	IEnumerator ClickDetect()
+	{
+		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+		clicked = true;
 	}
 
 }
