@@ -11,7 +11,6 @@ using TMPro;
 /// </summary>
 public class Conversation : MonoBehaviour
 {
-    public bool isComp;
     public List<Transform> sayers;
     public List<string> wordScripts;
     public Vector3 dels;
@@ -23,39 +22,23 @@ public class Conversation : MonoBehaviour
     
     int idx = 0;
 
-	public void EmptyFunc()
-	{
-		isComp = true;
-	}
-    public void DelEmpFunc(float t)
-    {
-        StartCoroutine(DelayEmpty(t));
-    }
-
     public void SetPreDel(float x)
 	{
         dels.x = x;
-        isComp = true;
     }
     public void SetMidDel(float y)
     {
         dels.y = y;
-        isComp = true;
     }
     public void SetPostDel(float z)
     {
         dels.z = z;
-        isComp = true;
     }
     public void NextSerif()
 	{
+        CinemaDirector.instance.processes += 1;
         StartCoroutine(DelaySerif());
 	}
-    IEnumerator DelayEmpty(float t)
-    {
-        yield return new WaitForSeconds(t);
-        isComp = true;
-    }
     IEnumerator DelaySerif()
 	{
         wordBallon = sayers[idx].GetComponentInChildren<Image>();
@@ -72,6 +55,7 @@ public class Conversation : MonoBehaviour
         wordBallon.enabled = false;
         word.text = "";
         ++idx;
-        isComp = true;
+        
+        CinemaDirector.instance.processes -= 1;
 	}
 }

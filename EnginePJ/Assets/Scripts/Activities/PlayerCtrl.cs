@@ -18,6 +18,8 @@ public class PlayerCtrl : MonoBehaviour
 	public float err;
     bool movable = true;
 	float prevSpeed;
+	int dirX = 1;
+	Vector3 initScale;
 	Animator myAnim;
 
 	private void Awake()
@@ -26,6 +28,7 @@ public class PlayerCtrl : MonoBehaviour
 		clickPos = transform.position;
 		prevSpeed = speed;
 		myAnim = GetComponent<Animator>();
+		initScale = transform.localScale;
 		layer = ~(1 << layer);
 	}
 
@@ -61,25 +64,32 @@ public class PlayerCtrl : MonoBehaviour
 		
 		if (movable)
 		{
-			float dirX;
+			
 			dir = clickPos - (Vector2)transform.position;
-			if(dir.x > 0)
-			{
-				dirX = 1; 
-				
-			}
-			else
-			{
-				dirX = -1;
-			}
-			myAnim.SetBool("Walking", true);
-			myAnim.SetBool("Idling", false);
-			if(Approximate(dir.x, 0, err))
+			if (Approximate(dir.x, 0, err))
 			{
 				dirX = 0;
 				myAnim.SetBool("Walking", false);
 				myAnim.SetBool("Idling", true);
 			}
+			else if (dir.x > 0)
+			{
+				dirX = 1;
+				myAnim.SetBool("Walking", true);
+				myAnim.SetBool("Interacting", false);
+				myAnim.SetBool("Idling", false);
+				transform.localScale = new Vector3(-initScale.x, initScale.y, initScale.z);
+			}
+			else
+			{
+				dirX = -1;
+				myAnim.SetBool("Walking", true);
+				myAnim.SetBool("Interacting", false);
+				myAnim.SetBool("Idling", false);
+				transform.localScale = initScale;
+			}
+			
+			
 			transform.Translate(new Vector2(dirX * speed * Time.deltaTime, 0));
 		}
 	}

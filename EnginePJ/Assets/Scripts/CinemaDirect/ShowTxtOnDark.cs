@@ -8,7 +8,7 @@ using TMPro;
 /// </summary>
 public class ShowTxtOnDark : MonoBehaviour
 {
-	public bool isComp;
+
 	public Image DarkPanel;
     public TextMeshProUGUI txt;
 
@@ -18,54 +18,41 @@ public class ShowTxtOnDark : MonoBehaviour
 	{
 		txt.text = "";
 	}
-	public void EmptyFunc()
-	{
-		isComp = true;
-	}
-	public void DelEmpFunc(float t)
-	{
-		StartCoroutine(DelayEmpty(t));
-	}
-
 	public void FadeAppear(float time)
 	{
+		CinemaDirector.instance.processes += 1;
 		StartCoroutine(DelayFade(time, 1));
 	}
 
 	public void FadeDisappear(float time)
 	{
+		CinemaDirector.instance.processes += 1;
 		StartCoroutine(DelayFade(time, 0));
 	}
 
 	public void Show(string txt)
 	{
-        StartCoroutine(DelayShowDelay(txt));
+		CinemaDirector.instance.processes += 1;
+		StartCoroutine(DelayShowDelay(txt));
 	}
 
 	public void Erase(int leaveLen)
 	{
+		CinemaDirector.instance.processes += 1;
 		StartCoroutine(Eraser(leaveLen));
 	}
 
 	public void SetPreDel(float val)
 	{
 		dels.x = val;
-		isComp = true;
 	}
 	public void SetMidDel(float val)
 	{
 		dels.y = val;
-		isComp = true;
 	}
 	public void SetPostDel(float val)
 	{
 		dels.z = val;
-		isComp = true;
-	}
-	IEnumerator DelayEmpty(float t)
-	{
-		yield return new WaitForSeconds(t);
-		isComp = true;
 	}
 	IEnumerator Eraser(int leftTxtLen)
 	{
@@ -77,7 +64,7 @@ public class ShowTxtOnDark : MonoBehaviour
 			yield return new WaitForSeconds(dels.y);
 		}
 		yield return new WaitForSeconds(dels.z);
-		isComp = true;
+		CinemaDirector.instance.processes -= 1;
 	}
 
     IEnumerator DelayShowDelay(string shower)
@@ -89,7 +76,7 @@ public class ShowTxtOnDark : MonoBehaviour
 			yield return new WaitForSeconds(dels.y);
 		}
 		yield return new WaitForSeconds(dels.z);
-		isComp = true;
+		CinemaDirector.instance.processes -= 1;
 	}
 
 	IEnumerator DelayFade(float time, float onoff)
@@ -105,6 +92,6 @@ public class ShowTxtOnDark : MonoBehaviour
 			DarkPanel.color = c;
 		}
 		yield return null;
-		isComp = true;
+		CinemaDirector.instance.processes -= 1;
 	}
 }

@@ -7,43 +7,26 @@ using UnityEngine.Experimental.Rendering.Universal;
 /// </summary>
 public class UpdateLights : MonoBehaviour
 {
-	public bool isComp;
     public Light2D source;
 	
 	float transTime;
 
-	public void EmptyFunc()
-	{
-		isComp = true;
-	}
-
-	public void DelEmpFunc(float t)
-	{
-		StartCoroutine(DelayEmpty(t));
-	}
-
 	public void AdjustLight(float value)
 	{
 		source.intensity = value;
-		isComp = true;
 	}
 
 	public void AdjustSmooth(float val)
 	{
+		CinemaDirector.instance.processes += 1;
 		StartCoroutine(DelayAdjust(val));
 	}
 
 	public void SetTrans(float val)
 	{
 		transTime = val;
-		isComp = true;
 	}
 
-	IEnumerator DelayEmpty(float t)
-	{
-		yield return new WaitForSeconds(t);
-		isComp = true;
-	}
 
 	IEnumerator DelayAdjust(float value)
 	{
@@ -56,6 +39,6 @@ public class UpdateLights : MonoBehaviour
 			source.intensity = Mathf.Lerp(initIts, value, timePassed / transTime);
 		}
 
-		isComp = true;
+		CinemaDirector.instance.processes -= 1;
 	}
 }

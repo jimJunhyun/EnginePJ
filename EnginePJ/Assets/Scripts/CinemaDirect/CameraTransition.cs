@@ -5,7 +5,6 @@ using Cinemachine;
 
 public class CameraTransition : MonoBehaviour
 {
-    public bool isComp;
     const int NOTUSING = 10;
     const int USING = 20;
 
@@ -13,14 +12,6 @@ public class CameraTransition : MonoBehaviour
 
     float delayTime;
     int idx = 0;
-    public void EmptyFunc()
-    {
-        isComp = true;
-    }
-    public void DelEmpFunc(float t)
-    {
-        StartCoroutine(DelayEmpty(t));
-    }
     private void Awake()
 	{
 		for (int i = 0; i < camPoses.Count; i++)
@@ -33,6 +24,7 @@ public class CameraTransition : MonoBehaviour
 
     public void NextCamPos()
 	{
+        CinemaDirector.instance.processes += 1;
         camPoses[idx].Priority = NOTUSING;
         ++idx;
         camPoses[idx].Priority = USING;
@@ -43,11 +35,6 @@ public class CameraTransition : MonoBehaviour
 	{
         delayTime = val;
 	}
-    IEnumerator DelayEmpty(float t)
-    {
-        yield return new WaitForSeconds(t);
-        isComp = true;
-    }
     IEnumerator CheckArrival()
 	{
         while(camPoses[idx].transform.position != Camera.main.transform.position)
@@ -55,6 +42,6 @@ public class CameraTransition : MonoBehaviour
             yield return null;
 		}
         yield return new WaitForSeconds(delayTime);
-        isComp = true;
-	}
+        CinemaDirector.instance.processes -= 1;
+    }
 }

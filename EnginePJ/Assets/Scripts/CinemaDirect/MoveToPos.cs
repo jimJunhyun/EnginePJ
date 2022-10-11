@@ -4,29 +4,15 @@ using UnityEngine;
 
 public class MoveToPos : MonoBehaviour
 {
-    public bool isComp;
     public List<Transform> mover;
     public List<Transform> destine;
 
     int idx = 0;
-
-    public void EmptyFunc()
-    {
-        isComp = true;
-    }
-    public void DelEmpFunc(float t)
-    {
-        StartCoroutine(DelayEmpty(t));
-    }
     public void StartMove(float time)
 	{
+        CinemaDirector.instance.processes += 1;
         StartCoroutine(MoveForTime(time));
 	}
-    IEnumerator DelayEmpty(float t)
-    {
-        yield return new WaitForSeconds(t);
-        isComp = true;
-    }
     IEnumerator MoveForTime(float t)
 	{
         float curTime = 0;
@@ -39,6 +25,6 @@ public class MoveToPos : MonoBehaviour
             
 		}
         ++idx;
-        isComp = true;
+        CinemaDirector.instance.processes -= 1;
     }
 }
