@@ -109,8 +109,8 @@ TextureImporter:
       name: MainCharacter2_0
       rect:
         serializedVersion: 2
-        x: 370
-        y: 105
+        x: 372
+        y: 103
         width: 679
         height: 1032
       alignment: 0

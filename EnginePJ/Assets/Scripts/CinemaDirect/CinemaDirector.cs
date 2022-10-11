@@ -6,7 +6,10 @@ using UnityEngine.UI;
 
 public class CinemaDirector : MonoBehaviour
 {
+	public static CinemaDirector instance;
 	public List<UnityEvent> dircs;
+
+	public int processes =0;
 
 	UpdateLights lightMan;
 	ShowTxtOnDark textMan;
@@ -20,6 +23,7 @@ public class CinemaDirector : MonoBehaviour
 
 	private void Awake()
 	{
+		instance = this;
 		lightMan = GetComponent<UpdateLights>();
 		textMan = GetComponent<ShowTxtOnDark>();
 		moveMan = GetComponent<MoveToPos>();
@@ -29,14 +33,8 @@ public class CinemaDirector : MonoBehaviour
 
 	private void Update()
 	{
-		nextProceed = (lightMan.isComp && textMan.isComp && moveMan.isComp && convMan.isComp && tranMan.isComp);
-		if (((idx == 0 || nextProceed || clicked) && idx < dircs.Count))
+		if (((idx == 0 || processes == 0 || clicked) && idx < dircs.Count))
 		{
-			lightMan.isComp = false;
-			textMan.isComp = false;
-			moveMan.isComp = false;
-			convMan.isComp = false;
-			tranMan.isComp = false;
 			clicked = false;
 			dircs[idx].Invoke();
 			++idx;
