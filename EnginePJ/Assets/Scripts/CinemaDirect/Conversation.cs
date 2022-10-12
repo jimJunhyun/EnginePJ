@@ -22,7 +22,13 @@ public class Conversation : MonoBehaviour
     
     int idx = 0;
 
-    public void SetPreDel(float x)
+	private void Awake()
+	{
+        wordBallon = sayers[idx].GetComponentInChildren<Image>();
+        word = wordBallon.GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+	public void SetPreDel(float x)
 	{
         dels.x = x;
     }
@@ -52,10 +58,17 @@ public class Conversation : MonoBehaviour
             word.text += wordScripts[idx][i];
 		}
         yield return new WaitForSeconds(dels.z);
-        wordBallon.enabled = false;
-        word.text = "";
-        ++idx;
-        
+        CinemaDirector.instance.WaitClick();
         CinemaDirector.instance.processes -= 1;
 	}
+    public void OffBallon()
+	{
+		if (wordBallon.enabled)
+		{
+            wordBallon.enabled = false;
+            word.text = "";
+            ++idx;
+        }
+        
+    }
 }
