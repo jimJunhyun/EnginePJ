@@ -30,6 +30,12 @@ public class ShowTxtOnDark : MonoBehaviour
 		StartCoroutine(DelayFade(time, 0));
 	}
 
+	public void EraseAndShow(string txt)
+	{
+		CinemaDirector.instance.processes += 1;
+		StartCoroutine(EraseShow(txt));
+	}
+
 	public void Show(string txt)
 	{
 		CinemaDirector.instance.processes += 1;
@@ -54,6 +60,19 @@ public class ShowTxtOnDark : MonoBehaviour
 	{
 		dels.z = val;
 	}
+
+	IEnumerator EraseShow(string showTxt)
+	{
+		int initLen = txt.text.Length;
+		yield return new WaitForSeconds(dels.x);
+		for (int i = 0; i < initLen; i++)
+		{
+			txt.text = txt.text.Substring(0, txt.text.Length - 1);
+			yield return new WaitForSeconds(dels.y);
+		}
+		yield return StartCoroutine(DelayShowDelay(showTxt));
+	}
+
 	IEnumerator Eraser(int leftTxtLen)
 	{
 		int initLen = txt.text.Length;
