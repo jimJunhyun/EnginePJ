@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(GlowAura))]
 public class Interacts : MonoBehaviour
 {
     public UnityEvent OnInter;

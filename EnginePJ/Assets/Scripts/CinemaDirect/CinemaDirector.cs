@@ -32,6 +32,11 @@ public class CinemaDirector : MonoBehaviour
 			++idx;
 		}
 	}
+	public void Delay(float t)
+	{
+		processes += 1;
+		StartCoroutine(TimeLag(t));
+	}
 	public void WaitClick()
 	{
 		processes += 1;
@@ -42,6 +47,11 @@ public class CinemaDirector : MonoBehaviour
 		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 		clicked = true;
 		convMan.OffBallon();
+	}
+	IEnumerator TimeLag(float wait)
+	{
+		yield return new WaitForSeconds(wait);
+		processes -= 1;
 	}
 
 }

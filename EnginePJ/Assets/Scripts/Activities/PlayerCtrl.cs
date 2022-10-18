@@ -30,6 +30,7 @@ public class PlayerCtrl : MonoBehaviour
 		myAnim = GetComponent<Animator>();
 		initScale = transform.localScale;
 		layer = ~(1 << layer);
+		myAnim.SetBool("CinemaIdle", false);
 	}
 
 	// Update is called once per frame

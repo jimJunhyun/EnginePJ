@@ -7,7 +7,7 @@ public class CursorManager : MonoBehaviour
 	public static CursorManager instance;
 
     public float detectRange = 1;
-    public int useLayer = 8;
+    public int useLayer = 7;
 
 	public Collider2D col;
 	Collider2D prevCol;

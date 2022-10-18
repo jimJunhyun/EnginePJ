@@ -22,7 +22,6 @@ public class Interacter : MonoBehaviour
     {
 		if (CursorManager.instance.col && Input.GetMouseButtonDown(0))
 		{
-			Debug.Log("!");
 			if (hit = Physics2D.Raycast(transform.position, (CursorManager.instance.col.transform.position - transform.position ).normalized, interDist, useLayer))
 			{
 				hit.transform.GetComponent<Interacts>().Act(()=>{ myAnim.SetBool("Interacting", false); });

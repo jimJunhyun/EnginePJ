@@ -5,20 +5,32 @@ using UnityEngine;
 public class GlowAura : MonoBehaviour
 {
     public float lerpTime;
-	[Range(0,1)]
-	public float alphaMax;
+	[Range(0,0.08f)]
+	public float glowMax;
 
 	SpriteRenderer sprend;
-	Color currentCol;
+	Material glowMat;
 	Coroutine starter;
 	Coroutine ender;
 	// Update is called once per frame
 	private void Awake()
 	{
 		sprend = GetComponent<SpriteRenderer>();
-		currentCol = sprend.color;
-		currentCol.a = 0;
-		sprend.color = currentCol;
+		glowMat = sprend.material;
+		glowMat.SetFloat("GlowDep", 0f);
+		glowMat.SetInt("GlowDis", 1);
+	}
+
+	private void Update()
+	{
+		if (glowMat.GetFloat("GlowDep") == 0)
+		{
+			glowMat.SetInt("GlowDis", 1);
+		}
+		else
+		{
+			glowMat.SetInt("GlowDis", 0);
+		}
 	}
 
 	public void OnLight()
@@ -30,7 +42,7 @@ public class GlowAura : MonoBehaviour
 		}
 		if (starter == null)
 		{
-			starter = StartCoroutine(LerpAlpha(alphaMax));
+			starter = StartCoroutine(LerpDepth(glowMax));
 		}
 		
 	}
@@ -44,22 +56,20 @@ public class GlowAura : MonoBehaviour
 		}
 		if (ender == null)
 		{
-			ender = StartCoroutine(LerpAlpha(0));
+			ender = StartCoroutine(LerpDepth(0));
 		}
 		
 	}
 
-	IEnumerator LerpAlpha(float alpha)
+	IEnumerator LerpDepth(float dep)
 	{
 		float timepass = 0f;
-		Color initCol = sprend.color;
-		while(timepass <= lerpTime)
+		float initDep = glowMat.GetFloat("GlowDep");
+		while (timepass <= lerpTime)
 		{
 			timepass += Time.deltaTime;
 			yield return null;
-			currentCol = sprend.color;
-			currentCol.a = Mathf.Lerp(initCol.a, alpha, timepass / lerpTime) ;
-			sprend.color = currentCol;
+			glowMat.SetFloat("GlowDep", Mathf.Lerp(initDep, dep, timepass / lerpTime)) ;
 		}
 	}
 }
