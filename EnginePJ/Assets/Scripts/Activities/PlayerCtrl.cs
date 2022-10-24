@@ -14,6 +14,7 @@ public class PlayerCtrl : MonoBehaviour
     public float speed;
 	public float rayDist;
 	public int layer;
+	public int layer2;
 
 	public float err;
     bool movable = true;
@@ -30,20 +31,21 @@ public class PlayerCtrl : MonoBehaviour
 		myAnim = GetComponent<Animator>();
 		initScale = transform.localScale;
 		layer = ~(1 << layer);
+		layer2 = ~(1 << layer2);
+		layer &= layer2;
 		myAnim.SetBool("CinemaIdle", false);
 	}
 
 	// Update is called once per frame
 	void Update()
     {
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0) && !CursorManager.instance.hovering)
 		{
             clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			dir = clickPos - (Vector2)transform.position;
 			
         }
 		buttonCheck = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Debug.Log(Physics.Raycast(buttonCheck));
 		if (Physics2D.Raycast(transform.position, new Vector2(dir.x, 0), rayDist, layer))
 		{
 			if(speed != 0)
@@ -59,6 +61,8 @@ public class PlayerCtrl : MonoBehaviour
 		}
 		Move();
     }
+
+	
 
 	void Move()
 	{

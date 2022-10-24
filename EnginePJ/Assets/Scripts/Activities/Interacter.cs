@@ -5,7 +5,6 @@ using UnityEngine;
 public class Interacter : MonoBehaviour
 {
     public float interDist;
-    public int useLayer = 7;
 
 	Animator myAnim;
 
@@ -13,28 +12,21 @@ public class Interacter : MonoBehaviour
 
 	private void Awake()
 	{
-		useLayer = 1 << useLayer;
 		myAnim = GetComponent<Animator>();
 	}
 
-	// Update is called once per frame
-	void Update()
-    {
-		if (CursorManager.instance.col && Input.GetMouseButtonDown(0))
-		{
-			if (hit = Physics2D.Raycast(transform.position, (CursorManager.instance.col.transform.position - transform.position ).normalized, interDist, useLayer))
-			{
-				hit.transform.GetComponent<Interacts>().Act(()=>{ myAnim.SetBool("Interacting", false); });
-				
-				myAnim.SetBool("Interacting", true);
-				myAnim.SetBool("Walking", false);
-				myAnim.SetBool("Idling", false);
-
-			}
-		}
-    }
 	private void OnDrawGizmos()
 	{
 		Gizmos.DrawWireSphere(transform.position, interDist);
+	}
+
+	public void TempFL()
+	{
+		Debug.Log("봤습니다.");
+	}
+
+	public void TempFO()
+	{
+		Debug.Log("얻었습니다.");
 	}
 }

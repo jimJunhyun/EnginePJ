@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - Interactable
-  - 
+  - AirInteractable
   - 
   - 
   - Player
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: FrontGnd
     uniqueID: 592830225
+    locked: 0
+  - name: UI
+    uniqueID: 3690914167
     locked: 0

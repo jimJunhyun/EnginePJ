@@ -63,6 +63,7 @@ public class ShowTxtOnDark : MonoBehaviour
 
 	IEnumerator EraseShow(string showTxt)
 	{
+		yield return new WaitUntil(() => { return Input.GetMouseButtonDown(0);});
 		int initLen = txt.text.Length;
 		yield return new WaitForSeconds(dels.x);
 		for (int i = 0; i < initLen; i++)
@@ -75,6 +76,7 @@ public class ShowTxtOnDark : MonoBehaviour
 
 	IEnumerator Eraser(int leftTxtLen)
 	{
+		yield return new WaitUntil(() => { return Input.GetMouseButtonDown(0); });
 		int initLen = txt.text.Length;
 		yield return new WaitForSeconds(dels.x);
 		for (int i = 0; i < initLen - leftTxtLen; i++)
@@ -88,7 +90,7 @@ public class ShowTxtOnDark : MonoBehaviour
 
     IEnumerator DelayShowDelay(string shower)
 	{
-        yield return new WaitForSeconds(dels.x);
+		yield return new WaitForSeconds(dels.x);
 		for (int i = 0; i < shower.Length; i++)
 		{
             txt.text += shower[i];

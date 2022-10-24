@@ -17,7 +17,7 @@ public class Conversation : MonoBehaviour
 
     Image wordBallon;
     TextMeshProUGUI word;
-
+    Animator talkerAnim;
     
     
     int idx = 0;
@@ -52,6 +52,10 @@ public class Conversation : MonoBehaviour
         wordBallon.enabled = true;
         word.text = "";
         yield return new WaitForSeconds(dels.x);
+		if (talkerAnim = sayers[idx].GetComponentInChildren<Animator>())
+		{
+            talkerAnim.SetTrigger("Talking");
+		}
 		for (int i = 0; i < wordScripts[idx].Length; i++)
 		{
             yield return new WaitForSeconds(dels.y);

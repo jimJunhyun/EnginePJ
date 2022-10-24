@@ -6,18 +6,60 @@ using UnityEngine.Events;
 [RequireComponent(typeof(GlowAura))]
 public class Interacts : MonoBehaviour
 {
-    public UnityEvent OnInter;
+	public enum AllInteractions
+	{
+		None = -1,
+
+		Look,
+		Obtain,
+
+
+		Max
+	}
+
+	public UnityEvent OnLook;
+    public UnityEvent OnObt;
     public bool isInterable;
 	public float interactTime;
+	public List<AllInteractions> ableInters;
 
-	public void Act(System.Action onComp = null)
+	[HideInInspector]
+	public List<UnityAction<System.Action>> allActions = new List<UnityAction<System.Action>>();
+
+	Dictionary<AllInteractions, UnityAction<System.Action>> actions;
+
+	private void Awake()
 	{
-		if (isInterable)
+		actions = new Dictionary<AllInteractions, UnityAction<System.Action>>{
+			{ AllInteractions.Look,  Look},
+			{ AllInteractions.Obtain, Obtain },
+
+		};
+		for (int i = 0; i < ableInters.Count; i++)
 		{
-			OnInter?.Invoke();
+			allActions.Add(actions[ableInters[i]]);
+		}
+	}
+
+	public void Look(System.Action onComp = null)
+	{
+		if(isInterable && ableInters.Contains(AllInteractions.Look))
+		{
+			OnLook?.Invoke();
 			StartCoroutine(WaitInteract(onComp));
 		}
 	}
+
+	public void Obtain(System.Action onComp = null)
+	{
+		if (isInterable && ableInters.Contains(AllInteractions.Obtain))
+		{
+			OnObt?.Invoke();
+			StartCoroutine(WaitInteract(onComp));
+		}
+	}
+
+	//이외 액션들
 
 	public void Deactivate()
 	{
@@ -27,15 +69,14 @@ public class Interacts : MonoBehaviour
 	{
 		isInterable = true;
 	}
-	IEnumerator WaitInteract(System.Action onComp = null)
+	IEnumerator WaitInteract(System.Action onComp = null) 
 	{
+		//여기서 이동시키고 
 		Deactivate();
 		PlayerCtrl.instance.DeMove();
 		yield return new WaitForSeconds(interactTime);
-		Debug.Log("!");
 		Activate();
 		PlayerCtrl.instance.GoMove();
 		onComp?.Invoke();
-		Debug.Log("E");
 	}
 }
