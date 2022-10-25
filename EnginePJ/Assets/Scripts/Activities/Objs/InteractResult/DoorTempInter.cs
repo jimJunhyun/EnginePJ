@@ -11,12 +11,10 @@ public class DoorTempInter : MonoBehaviour
 	{
 		mycol = GetComponent<Collider2D>();
 		mysr = GetComponent<SpriteRenderer>();
-		glowcol = GetComponentsInChildren<Collider2D>()[1];
 	}
 	public void Open()
 	{
 		mycol.enabled = false;
 		mysr.enabled = false;
-		glowcol.enabled = false;
 	}
 }

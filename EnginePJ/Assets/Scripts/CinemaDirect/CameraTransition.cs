@@ -25,23 +25,27 @@ public class CameraTransition : MonoBehaviour
     public void NextCamPos()
 	{
         CinemaDirector.instance.processes += 1;
-        camPoses[idx].Priority = NOTUSING;
-        ++idx;
-        camPoses[idx].Priority = USING;
-        StartCoroutine(CheckArrival());
+        StartCoroutine(DelayNext());
     }
 
     public void SetDel(float val)
 	{
         delayTime = val;
 	}
+    IEnumerator DelayNext()
+	{
+        yield return new WaitForSeconds(delayTime);
+        camPoses[idx].Priority = NOTUSING;
+        ++idx;
+        camPoses[idx].Priority = USING;
+        StartCoroutine(CheckArrival());
+    }
     IEnumerator CheckArrival()
 	{
         while(camPoses[idx].transform.position != Camera.main.transform.position)
 		{
             yield return null;
 		}
-        yield return new WaitForSeconds(delayTime);
         CinemaDirector.instance.processes -= 1;
     }
 }

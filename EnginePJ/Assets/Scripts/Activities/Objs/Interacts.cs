@@ -3,20 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(GlowAura))]
 public class Interacts : MonoBehaviour
 {
-    public UnityEvent OnInter;
+	public enum AllInteractions
+	{
+		None = -1,
+
+		Look,
+		Obtain,
+
+
+		Max
+	}
+
+	public UnityEvent OnLook;
+    public UnityEvent OnObt;
     public bool isInterable;
 	public float interactTime;
+	public List<AllInteractions> ableInters;
 
-	public void Act(System.Action onComp = null)
+	[HideInInspector]
+	public List<UnityAction<System.Action>> allActions = new List<UnityAction<System.Action>>();
+
+	Dictionary<AllInteractions, UnityAction<System.Action>> actions;
+	int layer = 11;
+
+	private void Awake()
 	{
-		if (isInterable)
+		layer = 1 << layer;
+		actions = new Dictionary<AllInteractions, UnityAction<System.Action>>{
+			{ AllInteractions.Look,  Look},
+			{ AllInteractions.Obtain, Obtain },
+
+		};
+		for (int i = 0; i < ableInters.Count; i++)
 		{
-			OnInter?.Invoke();
-			StartCoroutine(WaitInteract(onComp));
+			allActions.Add(actions[ableInters[i]]);
 		}
 	}
+
+	public void Look(System.Action onComp)
+	{
+		if(isInterable && ableInters.Contains(AllInteractions.Look))
+		{
+			StartCoroutine(WaitInteract(OnLook, onComp));
+		}
+	}
+
+	public void Obtain(System.Action onComp)
+	{
+		if (isInterable && ableInters.Contains(AllInteractions.Obtain))
+		{
+			StartCoroutine(WaitInteract(OnObt, onComp));
+		}
+	}
+
+	//이외 액션들
 
 	public void Deactivate()
 	{
@@ -26,15 +69,19 @@ public class Interacts : MonoBehaviour
 	{
 		isInterable = true;
 	}
-	IEnumerator WaitInteract(System.Action onComp = null)
+	IEnumerator WaitInteract(UnityEvent act = null, System.Action onComp = null) 
 	{
-		Deactivate();
+		PlayerCtrl.instance.clickPos = transform.position;
+		
+		yield return new WaitUntil(() => { return  Physics2D.CircleCast(transform.position, PlayerCtrl.instance.GetComponent<Interacter>().interDist, Vector2.zero, 0, layer);});
 		PlayerCtrl.instance.DeMove();
+		PlayerCtrl.instance.InteractAnim();
+		Deactivate();
 		yield return new WaitForSeconds(interactTime);
-		Debug.Log("!");
+		act?.Invoke();
 		Activate();
 		PlayerCtrl.instance.GoMove();
+		
 		onComp?.Invoke();
-		Debug.Log("E");
 	}
 }
