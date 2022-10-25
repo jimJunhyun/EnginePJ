@@ -6,10 +6,8 @@ public class PlayerCtrl : MonoBehaviour
 {
     public static PlayerCtrl instance;
 
-    Vector2 clickPos;
+    public Vector2 clickPos;
 	Vector2 dir;
-
-	Ray buttonCheck;
 
     public float speed;
 	public float rayDist;
@@ -39,13 +37,12 @@ public class PlayerCtrl : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		if (Input.GetMouseButton(0) && !CursorManager.instance.hovering)
+		if (Input.GetMouseButton(0) && !CursorManager.instance.hoveringUI)
 		{
             clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			dir = clickPos - (Vector2)transform.position;
-			
-        }
-		buttonCheck = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+		}
 		if (Physics2D.Raycast(transform.position, new Vector2(dir.x, 0), rayDist, layer))
 		{
 			if(speed != 0)
@@ -99,8 +96,21 @@ public class PlayerCtrl : MonoBehaviour
 		}
 	}
 
+	public void InteractAnim()
+	{
+		myAnim.SetBool("Walking", false);
+		myAnim.SetBool("Interacting", true);
+		myAnim.SetBool("Idling", false);
+	}
+
+	public void ResetInterAnim()
+	{
+		myAnim.SetBool("Interacting", false);
+	}
+
 	public void DeMove()
 	{
+		myAnim.SetBool("Walking", false);
         movable = false;
 	}
     public void GoMove()

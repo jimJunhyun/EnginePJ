@@ -12,12 +12,13 @@ public class CursorManager : MonoBehaviour
     public int useLayer2 = 8;
 
 	public Collider2D col;
-	public bool hovering;
+	public bool hoveringUI;
+	public bool hoveringAura;
 	List<RaycastResult> results = new List<RaycastResult>();
 	List<GlowAura> auras = new List<GlowAura>();
 	PointerEventData data;
 	Collider2D prevCol;
-	GlowAura ga;
+	
 	// Update is called once per frame
 	private void Awake()
 	{
@@ -33,26 +34,21 @@ public class CursorManager : MonoBehaviour
 		EventSystem.current.RaycastAll(data, results);
 		for (int i = 0; i < results.Count; i++)
 		{
-			if(ga = results[i].gameObject.GetComponent<GlowAura>())
+			GlowAura ga;
+			if (ga = results[i].gameObject.GetComponent<GlowAura>())
 				auras.Add(ga);
 		}
-		
-		if(auras.Count >= 1)
-		{
-			hovering = true;
-		}
-		else
-		{
-			hovering = false;
-		}
-		//All?
+
+		hoveringAura = auras.Count >= 1;
+		hoveringUI = results.Count >= 1;
+
         col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), detectRange, useLayer);
 		if(prevCol && col && col != prevCol )
 		{
 			prevCol.GetComponent<GlowAura>().OffLight();
 			prevCol = null;
 		}
-		if (col && !hovering)
+		if (col && !hoveringAura)
 		{
 			col.GetComponent<GlowAura>().OnLight();
 			prevCol = col;

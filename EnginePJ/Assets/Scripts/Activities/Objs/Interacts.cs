@@ -27,9 +27,11 @@ public class Interacts : MonoBehaviour
 	public List<UnityAction<System.Action>> allActions = new List<UnityAction<System.Action>>();
 
 	Dictionary<AllInteractions, UnityAction<System.Action>> actions;
+	int layer = 11;
 
 	private void Awake()
 	{
+		layer = 1 << layer;
 		actions = new Dictionary<AllInteractions, UnityAction<System.Action>>{
 			{ AllInteractions.Look,  Look},
 			{ AllInteractions.Obtain, Obtain },
@@ -41,21 +43,19 @@ public class Interacts : MonoBehaviour
 		}
 	}
 
-	public void Look(System.Action onComp = null)
+	public void Look(System.Action onComp)
 	{
 		if(isInterable && ableInters.Contains(AllInteractions.Look))
 		{
-			OnLook?.Invoke();
-			StartCoroutine(WaitInteract(onComp));
+			StartCoroutine(WaitInteract(OnLook, onComp));
 		}
 	}
 
-	public void Obtain(System.Action onComp = null)
+	public void Obtain(System.Action onComp)
 	{
 		if (isInterable && ableInters.Contains(AllInteractions.Obtain))
 		{
-			OnObt?.Invoke();
-			StartCoroutine(WaitInteract(onComp));
+			StartCoroutine(WaitInteract(OnObt, onComp));
 		}
 	}
 
@@ -69,14 +69,19 @@ public class Interacts : MonoBehaviour
 	{
 		isInterable = true;
 	}
-	IEnumerator WaitInteract(System.Action onComp = null) 
+	IEnumerator WaitInteract(UnityEvent act = null, System.Action onComp = null) 
 	{
-		//여기서 이동시키고 
-		Deactivate();
+		PlayerCtrl.instance.clickPos = transform.position;
+		
+		yield return new WaitUntil(() => { return  Physics2D.CircleCast(transform.position, PlayerCtrl.instance.GetComponent<Interacter>().interDist, Vector2.zero, 0, layer);});
 		PlayerCtrl.instance.DeMove();
+		PlayerCtrl.instance.InteractAnim();
+		Deactivate();
 		yield return new WaitForSeconds(interactTime);
+		act?.Invoke();
 		Activate();
 		PlayerCtrl.instance.GoMove();
+		
 		onComp?.Invoke();
 	}
 }

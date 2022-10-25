@@ -20,7 +20,7 @@ public class Interacter : MonoBehaviour
 		Gizmos.DrawWireSphere(transform.position, interDist);
 	}
 
-	public void TempFL()
+	public void Looker(string log)
 	{
 		Debug.Log("ºÃ½À´Ï´Ù.");
 	}

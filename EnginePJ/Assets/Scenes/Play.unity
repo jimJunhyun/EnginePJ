@@ -638,7 +638,8 @@ MonoBehaviour:
   useLayer: 7
   useLayer2: 8
   col: {fileID: 0}
-  hovering: 0
+  hoveringUI: 0
+  hoveringAura: 0
 --- !u!4 &177551153
 Transform:
   m_ObjectHideFlags: 0
@@ -5332,7 +5333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3019764310798188899, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3019764310798188908, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
       propertyPath: m_RootOrder
