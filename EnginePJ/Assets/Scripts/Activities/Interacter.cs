@@ -7,12 +7,14 @@ public class Interacter : MonoBehaviour
     public float interDist;
 
 	Animator myAnim;
+	PlayerSpeak speak;
 
 	RaycastHit2D hit;
 
 	private void Awake()
 	{
 		myAnim = GetComponent<Animator>();
+		speak = GetComponent<PlayerSpeak>();
 	}
 
 	private void OnDrawGizmos()
@@ -22,7 +24,7 @@ public class Interacter : MonoBehaviour
 
 	public void Looker(string log)
 	{
-		Debug.Log("ºÃ½À´Ï´Ù.");
+		speak.Show(log);
 	}
 
 	public void TempFO()

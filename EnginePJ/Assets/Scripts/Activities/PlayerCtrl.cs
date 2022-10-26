@@ -78,7 +78,6 @@ public class PlayerCtrl : MonoBehaviour
 			{
 				dirX = 1;
 				myAnim.SetBool("Walking", true);
-				myAnim.SetBool("Interacting", false);
 				myAnim.SetBool("Idling", false);
 				transform.localScale = new Vector3(-initScale.x, initScale.y, initScale.z);
 			}
@@ -86,7 +85,6 @@ public class PlayerCtrl : MonoBehaviour
 			{
 				dirX = -1;
 				myAnim.SetBool("Walking", true);
-				myAnim.SetBool("Interacting", false);
 				myAnim.SetBool("Idling", false);
 				transform.localScale = initScale;
 			}

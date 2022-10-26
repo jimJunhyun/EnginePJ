@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InteractionManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerExitHandler
+public class InteractionManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	public InterPanel selPanel;
 	public void OnBeginDrag(PointerEventData eventData)
@@ -26,16 +26,14 @@ public class InteractionManager : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (eventData.hovered.Count >= 3)
+		if (eventData.hovered.Contains(eventData.hovered.Find((x)=>{return x.GetComponent<DragEndFunc>(); })))
 		{
-			PlayerCtrl.instance.GoMove();
+			
 			eventData.hovered[eventData.hovered.FindIndex((x) => {return x.GetComponent<DragEndFunc>(); })].GetComponent<DragEndFunc>().OnMouseUp?.Invoke(PlayerCtrl.instance.ResetInterAnim);
-			selPanel.gameObject.SetActive(false);
+			
 		}
+		selPanel.gameObject.SetActive(false);
+		PlayerCtrl.instance.GoMove();
 	}
 
-	public void OnPointerExit(PointerEventData eventData)
-	{
-		Debug.Log("Exit");
-	}
 }
