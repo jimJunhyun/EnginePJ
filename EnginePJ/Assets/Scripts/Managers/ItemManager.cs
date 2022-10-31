@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>
-/// 획득과 최대 갯수 등을 관리함.
-/// 개별 아이템의 경우 아이템 데이터로 관리.
-/// 인벤토리의 사용을 수반함.
-/// </summary>
+
 public class ItemManager : MonoBehaviour
 {
 	public static ItemManager instance;
 
 	public List<Sprite> icons = new List<Sprite>();
-	public List<ItemData> ItemList = new List<ItemData>();
 
-	enum ItemIds
+	public enum ItemIds
 	{
 		None = -1,
-		Key,
+		Phone,
+		Box,
+		LMAO,
 
 	}
 
@@ -29,27 +26,16 @@ public class ItemManager : MonoBehaviour
 	}
 	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>();
 
-	
-
-	public void ObtainItem(int id)
-	{
-		ItemList.Add(itemIdPairs[id]);
-	}
 
 	private void Awake()
 	{
 		instance = this;
-		foreach (var item in itemIdPairs.Keys)
-		{
-			Debug.Log(item + " : " + itemIdPairs[item]);
-		}
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{0, new ItemData(){uid = 0, name = "Key", desc = "It's a small golden key. Looks a little damaged.", icon = icons[0]} },
-			{1, new ItemData(){uid = 1,name = "이름2", desc = "Test2", icon = icons[1]} },
-			{2, new ItemData(){uid = 2,name = "이름3", desc = "Test3", icon = icons[2]} },
+			{((int)ItemIds.Phone), new ItemData(){uid = (int)ItemIds.Phone, name = "스마트폰", desc = "스마트폰이다. 약간 구형 기종이다.", icon = icons[0]} },
+			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[1]} },
+			{((int)ItemIds.LMAO), new ItemData(){uid = (int)ItemIds.LMAO,name = "하하", desc = "껄껄껄", icon = icons[2]} },
 		};
-		Debug.Log(itemIdPairs.Count);
 		foreach (var item in itemIdPairs.Keys)
 		{
 			Debug.Log(item + " : " + itemIdPairs[item]);
