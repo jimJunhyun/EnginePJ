@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class AppearInven : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	Image invenPanel;
+	RectTransform myRect;
 	Vector2 onPos;
 	Vector2 offPos;
 
@@ -14,10 +15,12 @@ public class AppearInven : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	public float lerpDist;
 	private void Awake()
 	{
+		myRect = GetComponent<RectTransform>();
 		invenPanel = GetComponentsInChildren<Image>()[1];
-		offPos = invenPanel.rectTransform.position;
-		onPos = new Vector2(offPos.x, offPos.y + lerpDist);
+		offPos = invenPanel.rectTransform.anchoredPosition;
+		onPos = Vector2.zero;
 	}
+
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		StopAllCoroutines();
@@ -33,18 +36,18 @@ public class AppearInven : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	IEnumerator LerpPanel(int dir)
 	{
 		float curTime = 0;
-		Vector2 initPos = invenPanel.rectTransform.position;
+		Vector2 initPos = invenPanel.rectTransform.anchoredPosition;
 		while (curTime < lerpTime)
 		{
 			yield return null;
 			curTime += Time.deltaTime;
 			if(dir == 1)
 			{
-				invenPanel.rectTransform.position = Vector2.Lerp(initPos, onPos, curTime / lerpTime);
+				invenPanel.rectTransform.anchoredPosition = Vector2.Lerp(initPos, onPos, curTime / lerpTime);
 			}
 			else if(dir == -1)
 			{
-				invenPanel.rectTransform.position = Vector2.Lerp(initPos, offPos, curTime / lerpTime);
+				invenPanel.rectTransform.anchoredPosition = Vector2.Lerp(initPos, offPos, curTime / lerpTime);
 			}
 			
 		}

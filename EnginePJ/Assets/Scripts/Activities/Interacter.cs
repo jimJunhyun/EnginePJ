@@ -26,9 +26,4 @@ public class Interacter : MonoBehaviour
 	{
 		speak.Show(log);
 	}
-
-	public void TempFO()
-	{
-		Debug.Log("얻었습니다.");
-	}
 }

@@ -13,6 +13,7 @@ public class PlayerCtrl : MonoBehaviour
 	public float rayDist;
 	public int layer;
 	public int layer2;
+	public int layer3;
 
 	public float err;
     bool movable = true;
@@ -30,7 +31,9 @@ public class PlayerCtrl : MonoBehaviour
 		initScale = transform.localScale;
 		layer = ~(1 << layer);
 		layer2 = ~(1 << layer2);
+		layer3 = ~(1<< layer3);
 		layer &= layer2;
+		layer &= layer3;
 		myAnim.SetBool("CinemaIdle", false);
 	}
 

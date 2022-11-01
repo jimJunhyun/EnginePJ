@@ -25,7 +25,7 @@ public class InvenManager : MonoBehaviour
 	public void ItemUse(int dataIdx)
 	{
 		//?
-		items[idx] = new ItemManager.ItemData();
+		items[idx] = new ItemManager.ItemData(true);
 		slots[idx].thisId = -1; 
 	}
 }

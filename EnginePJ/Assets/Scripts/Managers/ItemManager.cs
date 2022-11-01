@@ -6,6 +6,7 @@ public class ItemManager : MonoBehaviour
 {
 	public static ItemManager instance;
 
+	public int itemInterLayer = 10;
 	public List<Sprite> icons = new List<Sprite>();
 
 	public enum ItemIds
@@ -23,6 +24,31 @@ public class ItemManager : MonoBehaviour
 		public string name { get; set;}
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
+
+		public ItemData(bool isDummy)
+		{
+				uid = -1;
+				name = "존재하지않음.";
+				desc = "존재하지않음.";
+				icon = null;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return base.Equals(obj);
+		}
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+		public static bool operator== (ItemData a, ItemData b)
+		{
+			return a.uid == b.uid;
+		}
+		public static bool operator!= (ItemData a, ItemData b)
+		{
+			return a.uid != b.uid;
+		}
 	}
 	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>();
 
@@ -30,6 +56,7 @@ public class ItemManager : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
+		itemInterLayer = 1 << itemInterLayer;
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
 			{((int)ItemIds.Phone), new ItemData(){uid = (int)ItemIds.Phone, name = "스마트폰", desc = "스마트폰이다. 약간 구형 기종이다.", icon = icons[0]} },

@@ -15,7 +15,7 @@ TagManager:
   - Interactable
   - AirInteractable
   - 
-  - 
+  - ItemInterable
   - Player
   - 
   - Confiners

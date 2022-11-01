@@ -16,7 +16,17 @@ public class PlayerSpeak : MonoBehaviour
 		wordBallon = GetComponentInChildren<Image>();
 		sayText = GetComponentInChildren<TextMeshProUGUI>();
 	}
-
+	private void Update()
+	{
+		if(transform.localScale.x < 0)
+		{
+			wordBallon.rectTransform.rotation = Quaternion.Euler(0, -180,0);
+		}
+		else
+		{
+			wordBallon.rectTransform.rotation = Quaternion.identity;
+		}
+	}
 	public void Show(string txt)
 	{
 		StartCoroutine(DelShow(txt));
@@ -27,7 +37,6 @@ public class PlayerSpeak : MonoBehaviour
 		wordBallon.enabled = true;
 		sayText.text = "";
 		PlayerCtrl.instance.DeMove();
-		
 		string buffer= "";
 		int idx = 0;
 		while(idx < txt.Length)
@@ -37,10 +46,8 @@ public class PlayerSpeak : MonoBehaviour
 			++idx;
 			sayText.text = buffer;
 		}
-		Debug.Log("Wrote" + buffer);
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(0.5f);
 		yield return new WaitUntil(() => { return Input.GetMouseButtonDown(0);});
-		Debug.Log("Erase");
 		PlayerCtrl.instance.GoMove();
 		wordBallon.enabled = false;
 		sayText.text = "";
