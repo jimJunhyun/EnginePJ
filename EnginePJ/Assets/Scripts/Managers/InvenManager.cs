@@ -15,17 +15,40 @@ public class InvenManager : MonoBehaviour
 		GetComponentsInChildren(slots);
 	}
 
-	public void ItemGet(int dataIdx)
+	public void ItemGet(int itemId)
 	{
-		items[idx] = ItemManager.instance.itemIdPairs[dataIdx];
-		slots[idx].thisId = ItemManager.instance.itemIdPairs[dataIdx].uid;
-		slots[idx].SetData();
+		items[idx] = ItemManager.instance.itemIdPairs[itemId];
+		slots[idx].thisId = ItemManager.instance.itemIdPairs[itemId].uid;
 		++idx;
 	}
-	public void ItemUse(int dataIdx)
+	public void ItemUse(int itemId)
 	{
-		//?
-		items[idx] = new ItemManager.ItemData(true);
-		slots[idx].thisId = -1; 
+		ItemManager.ItemData foundItem;
+		int foundIdx;
+		if ((foundItem = items.Find((x)=>{ return itemId == x.uid;})) != null)
+		{
+			foundIdx = items.FindIndex((x) => { return foundItem == x; });
+			items[foundIdx] = new ItemManager.ItemData(true);
+			slots[foundIdx].thisId = -1;
+			if (foundIdx != 9)
+			{
+				for (int i = foundIdx; i < INVENTORY_SIZE; i++)
+				{
+					if(i < INVENTORY_SIZE - 1 && slots[i + 1].thisId >-1)
+					{
+						slots[i].thisId = slots[i + 1].thisId;
+						items[i] = items[i + 1];
+					}
+					else
+					{
+						slots[i].thisId = -1;
+						items[i] = new ItemManager.ItemData(true);
+						idx = i;
+						break;
+					}
+				}
+				
+			}
+		}
 	}
 }

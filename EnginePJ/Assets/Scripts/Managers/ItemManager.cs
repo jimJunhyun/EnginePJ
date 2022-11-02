@@ -12,7 +12,6 @@ public class ItemManager : MonoBehaviour
 	public enum ItemIds
 	{
 		None = -1,
-		Phone,
 		Box,
 		LMAO,
 
@@ -24,13 +23,17 @@ public class ItemManager : MonoBehaviour
 		public string name { get; set;}
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
+		public bool dispensable { get; set;}
+		public bool anyUse { get; set;}
 
 		public ItemData(bool isDummy)
 		{
-				uid = -1;
-				name = "존재하지않음.";
-				desc = "존재하지않음.";
-				icon = null;
+			uid = -1;
+			name = "존재하지않음.";
+			desc = "존재하지않음.";
+			icon = null;
+			dispensable = true;
+			anyUse = false;
 		}
 
 		public override bool Equals(object obj)
@@ -59,9 +62,8 @@ public class ItemManager : MonoBehaviour
 		itemInterLayer = 1 << itemInterLayer;
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{((int)ItemIds.Phone), new ItemData(){uid = (int)ItemIds.Phone, name = "스마트폰", desc = "스마트폰이다. 약간 구형 기종이다.", icon = icons[0]} },
-			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[1]} },
-			{((int)ItemIds.LMAO), new ItemData(){uid = (int)ItemIds.LMAO,name = "하하", desc = "껄껄껄", icon = icons[2]} },
+			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[1], dispensable = true, anyUse = true} },
+			{((int)ItemIds.LMAO), new ItemData(){uid = (int)ItemIds.LMAO,name = "하하", desc = "껄껄껄", icon = icons[2], dispensable = true, anyUse = false} },
 		};
 		foreach (var item in itemIdPairs.Keys)
 		{

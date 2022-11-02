@@ -15,6 +15,6 @@ public class ItemInteract : MonoBehaviour
 	}
 	public void TempF()
 	{
-		Debug.Log("!!@!@!@!@");
+		Debug.Log("(!)(?)");
 	}
 }

@@ -109,9 +109,15 @@ public class PlayerCtrl : MonoBehaviour
 		myAnim.SetBool("Interacting", false);
 	}
 
+	public void ResetDir()
+	{
+		clickPos = transform.position;
+	}
+
 	public void DeMove()
 	{
 		myAnim.SetBool("Walking", false);
+		ResetDir();
         movable = false;
 	}
     public void GoMove()

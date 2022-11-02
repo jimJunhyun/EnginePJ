@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     public int thisId = -1;
+	int prevId = 0;
 	public UnityEvent<ItemManager.ItemData> OnPressInfo;
 	public UnityEvent OnDragInfo;
 	Image myImg;
@@ -26,14 +27,29 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		StartCoroutine(LateSet());
 	}
 
+	private void Update()
+	{
+		if(thisId != prevId)
+		{
+			SetData();
+			prevId = thisId;
+		}
+	}
+
 	public void SetData()
 	{
 		if(thisId < 0)
 		{
-			return;
+			myImg.enabled = false;
 		}
-		data = ItemManager.instance.itemIdPairs[thisId];
-		myImg.sprite = ItemManager.instance.itemIdPairs[thisId].icon;
+		else
+		{
+			Debug.Log("Setting");
+			myImg.enabled = true;
+			data = ItemManager.instance.itemIdPairs[thisId];
+			myImg.sprite = ItemManager.instance.itemIdPairs[thisId].icon;
+		}
+		
 	}
 	public void PressAct()
 	{
@@ -52,22 +68,30 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		ItemInteract endedInter = null;
-		RaycastHit2D hit;
-		if(hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(eventData.position), 0.1f, Vector2.zero, 0, ItemManager.instance.itemInterLayer))
+		if (data.anyUse)
 		{
-			Debug.Log("Found");
-			endedInter = hit.collider.GetComponent<ItemInteract>();
-			if(endedInter.detectingData == data)
-			{
-				Debug.Log("Matched");
-				endedInter.OnMatched.Invoke();
-			}
-			
+			///??!?!??!?!
 		}
-		myRect.localPosition = initPos;
-		myButton.interactable = true;
-		Cursor.visible = true;
+		else
+		{
+			ItemInteract endedInter = null;
+			RaycastHit2D hit;
+			if (hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(eventData.position), 0.1f, Vector2.zero, 0, ItemManager.instance.itemInterLayer))
+			{
+				Debug.Log("Found");
+				endedInter = hit.collider.GetComponent<ItemInteract>();
+				if (endedInter.detectingData == data)
+				{
+					Debug.Log("Matched");
+					endedInter.OnMatched.Invoke();
+				}
+
+			}
+			myRect.localPosition = initPos;
+			myButton.interactable = true;
+			Cursor.visible = true;
+		}
+		
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
