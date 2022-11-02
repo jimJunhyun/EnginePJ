@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>
-/// 획득과 최대 갯수 등을 관리함.
-/// 개별 아이템의 경우 아이템 데이터로 관리.
-/// 인벤토리의 사용을 수반함.
-/// </summary>
+
 public class ItemManager : MonoBehaviour
 {
 	public static ItemManager instance;
 
+	public int itemInterLayer = 10;
 	public List<Sprite> icons = new List<Sprite>();
-	public List<ItemData> ItemList = new List<ItemData>();
 
-	enum ItemIds
+	public enum ItemIds
 	{
 		None = -1,
-		Key,
+		Box,
+		LMAO,
 
 	}
 
@@ -26,30 +23,48 @@ public class ItemManager : MonoBehaviour
 		public string name { get; set;}
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
+		public bool dispensable { get; set;}
+		public bool anyUse { get; set;}
+
+		public ItemData(bool isDummy)
+		{
+			uid = -1;
+			name = "존재하지않음.";
+			desc = "존재하지않음.";
+			icon = null;
+			dispensable = true;
+			anyUse = false;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return base.Equals(obj);
+		}
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+		public static bool operator== (ItemData a, ItemData b)
+		{
+			return a.uid == b.uid;
+		}
+		public static bool operator!= (ItemData a, ItemData b)
+		{
+			return a.uid != b.uid;
+		}
 	}
 	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>();
 
-	
-
-	public void ObtainItem(int id)
-	{
-		ItemList.Add(itemIdPairs[id]);
-	}
 
 	private void Awake()
 	{
 		instance = this;
-		foreach (var item in itemIdPairs.Keys)
-		{
-			Debug.Log(item + " : " + itemIdPairs[item]);
-		}
+		itemInterLayer = 1 << itemInterLayer;
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{0, new ItemData(){uid = 0, name = "Key", desc = "It's a small golden key. Looks a little damaged.", icon = icons[0]} },
-			{1, new ItemData(){uid = 1,name = "이름2", desc = "Test2", icon = icons[1]} },
-			{2, new ItemData(){uid = 2,name = "이름3", desc = "Test3", icon = icons[2]} },
+			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[1], dispensable = true, anyUse = true} },
+			{((int)ItemIds.LMAO), new ItemData(){uid = (int)ItemIds.LMAO,name = "하하", desc = "껄껄껄", icon = icons[2], dispensable = true, anyUse = false} },
 		};
-		Debug.Log(itemIdPairs.Count);
 		foreach (var item in itemIdPairs.Keys)
 		{
 			Debug.Log(item + " : " + itemIdPairs[item]);

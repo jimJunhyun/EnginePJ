@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class CursorManager : MonoBehaviour
@@ -13,9 +14,9 @@ public class CursorManager : MonoBehaviour
 
 	public Collider2D col;
 	public bool hoveringUI;
-	public bool hoveringAura;
 	List<RaycastResult> results = new List<RaycastResult>();
 	List<GlowAura> auras = new List<GlowAura>();
+	List<Image> images = new List<Image>();
 	PointerEventData data;
 	Collider2D prevCol;
 	
@@ -34,13 +35,11 @@ public class CursorManager : MonoBehaviour
 		EventSystem.current.RaycastAll(data, results);
 		for (int i = 0; i < results.Count; i++)
 		{
-			GlowAura ga;
-			if (ga = results[i].gameObject.GetComponent<GlowAura>())
-				auras.Add(ga);
+			Image image;
+			if((results[i].gameObject.layer != 7 && results[i].gameObject.layer != 8) && (image = results[i].gameObject.GetComponent<Image>()))
+				images.Add(image);
 		}
-
-		hoveringAura = auras.Count >= 1;
-		hoveringUI = results.Count >= 1;
+		hoveringUI = images.Count >= 1;
 
         col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), detectRange, useLayer);
 		if(prevCol && col && col != prevCol )
@@ -48,7 +47,7 @@ public class CursorManager : MonoBehaviour
 			prevCol.GetComponent<GlowAura>().OffLight();
 			prevCol = null;
 		}
-		if (col && !hoveringAura)
+		if (col && !hoveringUI)
 		{
 			col.GetComponent<GlowAura>().OnLight();
 			prevCol = col;
@@ -58,6 +57,7 @@ public class CursorManager : MonoBehaviour
 			prevCol.GetComponent<GlowAura>().OffLight();
 			prevCol = null;
 		}
+		images.Clear();
     }
 	private void OnDrawGizmos()
 	{

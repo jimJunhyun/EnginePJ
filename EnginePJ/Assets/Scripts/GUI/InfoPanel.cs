@@ -17,7 +17,17 @@ public class InfoPanel : MonoBehaviour
 	private void Awake()
 	{
 		isOpened = false;
-		prevData = new ItemManager.ItemData(){uid = -1 };
+		prevData = new ItemManager.ItemData(true);
+	}
+
+	public void ForceOffPanel()
+	{
+		if (isOpened)
+		{
+			informatPanel.gameObject.SetActive(false);
+			isOpened = false;
+			prevData = new ItemManager.ItemData(true);
+		}
 	}
 
 	public void OnOffPanel(ItemManager.ItemData data)
@@ -28,7 +38,7 @@ public class InfoPanel : MonoBehaviour
 			{
 				informatPanel.gameObject.SetActive(false);
 				isOpened = false;
-				prevData = new ItemManager.ItemData();
+				prevData = new ItemManager.ItemData(true);
 			}
 			else
 			{

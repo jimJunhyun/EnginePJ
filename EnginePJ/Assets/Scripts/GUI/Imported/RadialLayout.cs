@@ -40,13 +40,17 @@ public class RadialLayout : LayoutGroup
         CalculateRadial();
     }
 #if UNITY_EDITOR
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-        CalculateRadial();
-    }
+    //protected override void OnValidate()
+    //{
+    //    base.OnValidate();
+    //    CalculateRadial();
+    //}
+	private void OnGUI()
+	{
+		CalculateRadial();
+	}
 #endif
-    void CalculateRadial()
+	void CalculateRadial()
     {
         m_Tracker.Clear();
         if (transform.childCount == 0)

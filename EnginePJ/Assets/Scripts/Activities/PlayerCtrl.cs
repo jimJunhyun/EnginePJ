@@ -13,6 +13,7 @@ public class PlayerCtrl : MonoBehaviour
 	public float rayDist;
 	public int layer;
 	public int layer2;
+	public int layer3;
 
 	public float err;
     bool movable = true;
@@ -30,7 +31,9 @@ public class PlayerCtrl : MonoBehaviour
 		initScale = transform.localScale;
 		layer = ~(1 << layer);
 		layer2 = ~(1 << layer2);
+		layer3 = ~(1<< layer3);
 		layer &= layer2;
+		layer &= layer3;
 		myAnim.SetBool("CinemaIdle", false);
 	}
 
@@ -78,7 +81,6 @@ public class PlayerCtrl : MonoBehaviour
 			{
 				dirX = 1;
 				myAnim.SetBool("Walking", true);
-				myAnim.SetBool("Interacting", false);
 				myAnim.SetBool("Idling", false);
 				transform.localScale = new Vector3(-initScale.x, initScale.y, initScale.z);
 			}
@@ -86,7 +88,6 @@ public class PlayerCtrl : MonoBehaviour
 			{
 				dirX = -1;
 				myAnim.SetBool("Walking", true);
-				myAnim.SetBool("Interacting", false);
 				myAnim.SetBool("Idling", false);
 				transform.localScale = initScale;
 			}
@@ -108,9 +109,15 @@ public class PlayerCtrl : MonoBehaviour
 		myAnim.SetBool("Interacting", false);
 	}
 
+	public void ResetDir()
+	{
+		clickPos = transform.position;
+	}
+
 	public void DeMove()
 	{
 		myAnim.SetBool("Walking", false);
+		ResetDir();
         movable = false;
 	}
     public void GoMove()

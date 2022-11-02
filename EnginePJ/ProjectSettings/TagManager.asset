@@ -15,7 +15,7 @@ TagManager:
   - Interactable
   - AirInteractable
   - 
-  - 
+  - ItemInterable
   - Player
   - 
   - Confiners
@@ -41,19 +41,19 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: BackGndGlow
+  - name: BackGndWithLight
     uniqueID: 1373004415
     locked: 0
   - name: BackGnd
     uniqueID: 3106462285
     locked: 0
-  - name: MidGndGlow
+  - name: MidGndWithLight
     uniqueID: 3588623495
     locked: 0
   - name: MidGnd
     uniqueID: 153527061
     locked: 0
-  - name: FrontGndGlow
+  - name: FrontGndWithLight
     uniqueID: 4001924355
     locked: 0
   - name: FrontGnd

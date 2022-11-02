@@ -26,11 +26,17 @@ public class Interacts : MonoBehaviour
 	[HideInInspector]
 	public List<UnityAction<System.Action>> allActions = new List<UnityAction<System.Action>>();
 
+	Canvas myRect;
+	GlowAura myAura;
 	Dictionary<AllInteractions, UnityAction<System.Action>> actions;
 	int layer = 11;
 
 	private void Awake()
 	{
+		myRect = GetComponentInChildren<Canvas>();
+		myAura = GetComponent<GlowAura>();
+		myAura.enabled = isInterable;
+		myRect.enabled = isInterable;
 		layer = 1 << layer;
 		actions = new Dictionary<AllInteractions, UnityAction<System.Action>>{
 			{ AllInteractions.Look,  Look},
@@ -47,7 +53,7 @@ public class Interacts : MonoBehaviour
 	{
 		if(isInterable && ableInters.Contains(AllInteractions.Look))
 		{
-			StartCoroutine(WaitInteract(OnLook, onComp));
+			StartCoroutine(WaitInteract(true,OnLook, onComp));
 		}
 	}
 
@@ -55,7 +61,7 @@ public class Interacts : MonoBehaviour
 	{
 		if (isInterable && ableInters.Contains(AllInteractions.Obtain))
 		{
-			StartCoroutine(WaitInteract(OnObt, onComp));
+			StartCoroutine(WaitInteract(true, OnObt, onComp));
 		}
 	}
 
@@ -64,12 +70,16 @@ public class Interacts : MonoBehaviour
 	public void Deactivate()
 	{
 		isInterable = false;
+		myRect.enabled = false;
+		myAura.enabled = false;
 	}
 	public void Activate()
 	{
 		isInterable = true;
+		myRect.enabled = true;
+		myAura.enabled = true;
 	}
-	IEnumerator WaitInteract(UnityEvent act = null, System.Action onComp = null) 
+	IEnumerator WaitInteract(bool toWait, UnityEvent act = null, System.Action onComp = null) 
 	{
 		PlayerCtrl.instance.clickPos = transform.position;
 		
@@ -77,9 +87,12 @@ public class Interacts : MonoBehaviour
 		PlayerCtrl.instance.DeMove();
 		PlayerCtrl.instance.InteractAnim();
 		Deactivate();
-		yield return new WaitForSeconds(interactTime);
-		act?.Invoke();
+		if (toWait)
+		{
+			yield return new WaitForSeconds(interactTime);
+		}
 		Activate();
+		act?.Invoke();
 		PlayerCtrl.instance.GoMove();
 		
 		onComp?.Invoke();
