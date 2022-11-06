@@ -14,4 +14,10 @@ public class CamTrans : MonoBehaviour
         currentCam.Priority = NOTUSING;
         cam.Priority = USING;
 	}
+    public void InstantChangeCan(CinemachineVirtualCamera cam)
+	{
+        currentCam.Priority = NOTUSING;
+        cam.Priority = USING;
+        transform.position = cam.transform.position;
+    }
 }

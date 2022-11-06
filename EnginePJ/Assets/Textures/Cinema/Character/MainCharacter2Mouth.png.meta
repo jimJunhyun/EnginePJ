@@ -5,6 +5,9 @@ TextureImporter:
   - first:
       213: 2865089057801023004
     second: MainCharacter2Mouth_0
+  - first:
+      213: 7924262816236084810
+    second: MainChar_LHand
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -4188,6 +4191,27 @@ TextureImporter:
         boneIndex[1]: 0
         boneIndex[2]: 0
         boneIndex[3]: 0
+    - serializedVersion: 2
+      name: MainChar_LHand
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 561
+        width: 57
+        height: 63
+      alignment: 9
+      pivot: {x: -0.0009819164, y: 0.5896287}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4e969cfb03a8fd60800000000000000
+      internalID: 7924262816236084810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
