@@ -12,6 +12,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 	int prevId = 0;
 	public UnityEvent<ItemManager.ItemData> OnPressInfo;
 	public UnityEvent OnDragInfo;
+	public UnityEvent OnWrongInter;
 	Image myImg;
 	Button myButton;
 	RectTransform myRect;
@@ -44,7 +45,6 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		}
 		else
 		{
-			Debug.Log("Setting");
 			myImg.enabled = true;
 			data = ItemManager.instance.itemIdPairs[thisId];
 			myImg.sprite = ItemManager.instance.itemIdPairs[thisId].icon;
@@ -68,25 +68,40 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (data.anyUse)
+		if(data.progressReq == GameManager.StageProgress.None || data.progressReq == GameManager.instance.curProgress)
 		{
-			///??!?!??!?!
+			if (data.anyUse)
+			{
+				data.OnUsed.Invoke();
+				myRect.localPosition = initPos;
+				myButton.interactable = true;
+				Cursor.visible = true;
+			}
+			else
+			{
+				ItemInteract endedInter = null;
+				RaycastHit2D hit;
+				if (hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(eventData.position), 0.1f, Vector2.zero, 0, ItemManager.instance.itemInterLayer))
+				{
+					endedInter = hit.collider.GetComponent<ItemInteract>();
+					if (endedInter.detectingData == data)
+					{
+						endedInter.OnMatched.Invoke();
+						data.OnUsed.Invoke();
+					}
+				}
+				else
+				{
+					ItemManager.instance.WrongInter();
+				}
+				myRect.localPosition = initPos;
+				myButton.interactable = true;
+				Cursor.visible = true;
+			}
 		}
 		else
 		{
-			ItemInteract endedInter = null;
-			RaycastHit2D hit;
-			if (hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(eventData.position), 0.1f, Vector2.zero, 0, ItemManager.instance.itemInterLayer))
-			{
-				Debug.Log("Found");
-				endedInter = hit.collider.GetComponent<ItemInteract>();
-				if (endedInter.detectingData == data)
-				{
-					Debug.Log("Matched");
-					endedInter.OnMatched.Invoke();
-				}
-
-			}
+			ItemManager.instance.WrongInter();
 			myRect.localPosition = initPos;
 			myButton.interactable = true;
 			Cursor.visible = true;

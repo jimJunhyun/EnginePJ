@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemManager : MonoBehaviour
 {
@@ -8,12 +10,13 @@ public class ItemManager : MonoBehaviour
 
 	public int itemInterLayer = 10;
 	public List<Sprite> icons = new List<Sprite>();
+	public List<UnityEvent> events = new List<UnityEvent>();
 
 	public enum ItemIds
 	{
 		None = -1,
 		Box,
-		LMAO,
+		VideoTape,
 
 	}
 
@@ -23,8 +26,9 @@ public class ItemManager : MonoBehaviour
 		public string name { get; set;}
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
-		public bool dispensable { get; set;}
 		public bool anyUse { get; set;}
+		public GameManager.StageProgress progressReq { get; set;}
+		public UnityEvent OnUsed { get; set;}
 
 		public ItemData(bool isDummy)
 		{
@@ -32,8 +36,9 @@ public class ItemManager : MonoBehaviour
 			name = "존재하지않음.";
 			desc = "존재하지않음.";
 			icon = null;
-			dispensable = true;
 			anyUse = false;
+			progressReq = GameManager.StageProgress.None;
+			OnUsed = null;
 		}
 
 		public override bool Equals(object obj)
@@ -56,18 +61,25 @@ public class ItemManager : MonoBehaviour
 	public Dictionary<int, ItemData> itemIdPairs = new Dictionary<int, ItemData>();
 
 
+	const string WRONGINTER_WORDS = "그렇게는 할 수 없다.";
+
 	private void Awake()
 	{
 		instance = this;
 		itemInterLayer = 1 << itemInterLayer;
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[1], dispensable = true, anyUse = true} },
-			{((int)ItemIds.LMAO), new ItemData(){uid = (int)ItemIds.LMAO,name = "하하", desc = "껄껄껄", icon = icons[2], dispensable = true, anyUse = false} },
+			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[(int)ItemIds.Box], anyUse = true, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.Box]} },
+			{((int)ItemIds.VideoTape), new ItemData(){uid = (int)ItemIds.VideoTape,name = "카세트테이프", desc = "오래된 카세트 테이프다. 왠지 익숙한 기분이다.", icon = icons[(int)ItemIds.VideoTape], anyUse = false, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.VideoTape]} },
 		};
 		foreach (var item in itemIdPairs.Keys)
 		{
 			Debug.Log(item + " : " + itemIdPairs[item]);
 		}
+	}
+
+	public void WrongInter()
+	{
+		PlayerCtrl.instance.GetComponent<PlayerSpeak>().Show(WRONGINTER_WORDS);
 	}
 }

@@ -92,9 +92,7 @@ public class Interacts : MonoBehaviour
 			yield return new WaitForSeconds(interactTime);
 		}
 		Activate();
-		act?.Invoke();
-		PlayerCtrl.instance.GoMove();
-		
+		act?.Invoke();		
 		onComp?.Invoke();
 	}
 }
