@@ -68,30 +68,40 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (data.anyUse)
+		if(data.progressReq == GameManager.StageProgress.None || data.progressReq == GameManager.instance.curProgress)
 		{
-			data.OnUsed.Invoke();
-			myRect.localPosition = initPos;
-			myButton.interactable = true;
-			Cursor.visible = true;
-		}
-		else
-		{
-			ItemInteract endedInter = null;
-			RaycastHit2D hit;
-			if (hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(eventData.position), 0.1f, Vector2.zero, 0, ItemManager.instance.itemInterLayer))
+			if (data.anyUse)
 			{
-				endedInter = hit.collider.GetComponent<ItemInteract>();
-				if (endedInter.detectingData == data)
-				{
-					endedInter.OnMatched.Invoke();
-					data.OnUsed.Invoke();
-				}
+				data.OnUsed.Invoke();
+				myRect.localPosition = initPos;
+				myButton.interactable = true;
+				Cursor.visible = true;
 			}
 			else
 			{
-				ItemManager.instance.WrongInter();
+				ItemInteract endedInter = null;
+				RaycastHit2D hit;
+				if (hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(eventData.position), 0.1f, Vector2.zero, 0, ItemManager.instance.itemInterLayer))
+				{
+					endedInter = hit.collider.GetComponent<ItemInteract>();
+					if (endedInter.detectingData == data)
+					{
+						endedInter.OnMatched.Invoke();
+						data.OnUsed.Invoke();
+					}
+				}
+				else
+				{
+					ItemManager.instance.WrongInter();
+				}
+				myRect.localPosition = initPos;
+				myButton.interactable = true;
+				Cursor.visible = true;
 			}
+		}
+		else
+		{
+			ItemManager.instance.WrongInter();
 			myRect.localPosition = initPos;
 			myButton.interactable = true;
 			Cursor.visible = true;

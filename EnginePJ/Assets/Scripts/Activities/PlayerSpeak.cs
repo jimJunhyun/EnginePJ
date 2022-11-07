@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
@@ -31,7 +32,34 @@ public class PlayerSpeak : MonoBehaviour
 	{
 		StartCoroutine(DelShow(txt));
 	}
-
+	public void ShowSeq(List<string> scripts, UnityAction onComp)
+	{
+		StartCoroutine(SequenceShow(scripts, onComp));
+	}
+	IEnumerator SequenceShow(List<string> scrs, UnityAction onComp)
+	{
+		wordBallon.enabled = true;
+		PlayerCtrl.instance.DeMove();
+		string buffer = "";
+		for (int i = 0; i < scrs.Count; i++)
+		{
+			sayText.text = "";
+			buffer = "";
+			int strIdx = 0;
+			while (strIdx < scrs[i].Length)
+			{
+				yield return new WaitForSeconds(typeMidDel);
+				buffer += scrs[i][strIdx];
+				++strIdx;
+				sayText.text = buffer;
+			}
+			yield return new WaitUntil(() => { return Input.GetMouseButtonDown(0); });
+		}
+		PlayerCtrl.instance.GoMove();
+		onComp.Invoke();
+		wordBallon.enabled = false;
+		sayText.text = "";
+	}
     IEnumerator DelShow(string txt)
 	{
 		wordBallon.enabled = true;

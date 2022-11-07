@@ -2248,6 +2248,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2283,7 +2284,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -2410,6 +2411,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 111ea9411967e594d847da2d791c3d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af457a61ed2785a48ac2743d14d3d8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &607515721
@@ -2606,7 +2619,7 @@ GameObject:
   - component: {fileID: 683450456}
   - component: {fileID: 683450455}
   - component: {fileID: 683450454}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2708,6 +2721,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 933929644}
+        m_TargetAssemblyTypeName: PlayerCtrl, Assembly-CSharp
+        m_MethodName: GoMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   isInterable: 1
   interactTime: 0.5
   ableInters: 0000000001000000
@@ -2788,6 +2813,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &708316953 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3582062890822339398, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+  m_PrefabInstance: {fileID: 3019764310592002443}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3320b8fd92ca2da419e6150650f97e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &720737563
 GameObject:
   m_ObjectHideFlags: 0
@@ -3848,6 +3884,7 @@ GameObject:
   - component: {fileID: 969811899}
   - component: {fileID: 969811900}
   - component: {fileID: 969811902}
+  - component: {fileID: 969811901}
   m_Layer: 8
   m_Name: Phone
   m_TagString: Untagged
@@ -4013,9 +4050,21 @@ MonoBehaviour:
           m_StringArgument: Calling
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 933929644}
-        m_TargetAssemblyTypeName: PlayerCtrl, Assembly-CSharp
-        m_MethodName: DeMove
+      - m_Target: {fileID: 969811901}
+        m_TargetAssemblyTypeName: CallWords, Assembly-CSharp
+        m_MethodName: InvokeSeq
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1942141517}
+        m_TargetAssemblyTypeName: Interacts, Assembly-CSharp
+        m_MethodName: Activate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4028,6 +4077,38 @@ MonoBehaviour:
   isInterable: 1
   interactTime: 0.5
   ableInters: 0000000001000000
+--- !u!114 &969811901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969811896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e24d13f09fa1146a2135524e8d633c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strings:
+  - "\uAC00\uB098\uB2E4\uB77C\uB9C8\uBC14\uC0AC"
+  - "\uC544\uC790\uCC28\uCE74\uD0C0\uD30C\uD558"
+  - "\uC544\uC57C\uC5B4\uC5EC"
+  - "\uC624\uC694\uC6B0\uC720\uC73C\uC774"
+  SequenceSay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 708316953}
+        m_TargetAssemblyTypeName: PlayerSpeak, Assembly-CSharp
+        m_MethodName: ShowSeq
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &969811902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4969,7 +5050,7 @@ GameObject:
   - component: {fileID: 1289195926}
   - component: {fileID: 1289195925}
   - component: {fileID: 1289195924}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: InteractField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5884,7 +5965,7 @@ GameObject:
   - component: {fileID: 1768875479}
   - component: {fileID: 1768875478}
   - component: {fileID: 1768875477}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: InterRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6442,6 +6523,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 519420036}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SetProgress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 933929644}
+        m_TargetAssemblyTypeName: PlayerCtrl, Assembly-CSharp
+        m_MethodName: GoMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isInterable: 1
   interactTime: 0.5
   ableInters: 01000000
@@ -6725,7 +6830,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isInterable: 1
+      - m_Target: {fileID: 519420036}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SetProgress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 933929644}
+        m_TargetAssemblyTypeName: PlayerCtrl, Assembly-CSharp
+        m_MethodName: GoMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isInterable: 0
   interactTime: 0.5
   ableInters: 0000000001000000
 --- !u!61 &1942141518
@@ -7915,7 +8044,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 12881459, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508996494591311957, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7897982
+      objectReference: {fileID: 0}
+    - target: {fileID: 508996494591311957, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.6133667
+      objectReference: {fileID: 0}
+    - target: {fileID: 508996494591311957, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -75.667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438958645921151036, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.10565917
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438958645921151036, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.21024361
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438958645921151036, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.4868346
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438958645921151036, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.8734942
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438958645921151036, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 121.735
       objectReference: {fileID: 0}
     - target: {fileID: 3019764310798188899, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
       propertyPath: m_Enabled
@@ -7984,6 +8145,10 @@ PrefabInstance:
     - target: {fileID: 4853121627952041174, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853121627952041174, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51dd935dba6062548a21c16fd5b170bf, type: 3}
