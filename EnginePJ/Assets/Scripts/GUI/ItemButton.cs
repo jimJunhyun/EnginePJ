@@ -52,8 +52,8 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		
 	}
 	public void PressAct()
-	{
-		if(data.uid > 0)
+	{ 
+		if(data.uid >= 0)
 		{
 			OnPressInfo.Invoke(data);
 		}
@@ -93,6 +93,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 				else
 				{
 					ItemManager.instance.WrongInter();
+					OnWrongInter?.Invoke();
 				}
 				myRect.localPosition = initPos;
 				myButton.interactable = true;
@@ -102,6 +103,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		else
 		{
 			ItemManager.instance.WrongInter();
+			OnWrongInter?.Invoke();
 			myRect.localPosition = initPos;
 			myButton.interactable = true;
 			Cursor.visible = true;
