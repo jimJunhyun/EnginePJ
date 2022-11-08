@@ -17,6 +17,7 @@ public class PlayerCtrl : MonoBehaviour
 
 	public float err;
     bool movable = true;
+	bool wallDet = false;
 	float prevSpeed;
 	int dirX = 1;
 	Vector3 initScale;
@@ -46,18 +47,21 @@ public class PlayerCtrl : MonoBehaviour
 			dir = clickPos - (Vector2)transform.position;
 
 		}
-		if (Physics2D.Raycast(transform.position, new Vector2(dir.x, 0), rayDist, layer))
+		if ( Physics2D.RaycastAll(transform.position, new Vector2(dir.x, 0), rayDist, layer).Length > 0)
 		{
 			if(speed != 0)
 			{
 				prevSpeed = speed;
 				speed = 0;
+				myAnim.SetBool("Walking", false);
+				myAnim.SetBool("Idling", true);
 			}
-			
+			wallDet = true;
 		}
 		else
 		{
 			speed = prevSpeed;
+			wallDet = false;
 		}
 		Move();
     }
@@ -67,7 +71,7 @@ public class PlayerCtrl : MonoBehaviour
 	void Move()
 	{
 		
-		if (movable)
+		if (movable && !wallDet)
 		{
 			
 			dir = clickPos - (Vector2)transform.position;

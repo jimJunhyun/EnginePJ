@@ -18,9 +18,11 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 	RectTransform myRect;
 	ItemManager.ItemData data;
 	Vector3 initPos;
+	int layer = 11;
 
 	private void Awake()
 	{
+		layer = 1 << layer;
 		myImg = GetComponent<Image>();
 		myRect = myImg.rectTransform;
 		myButton = GetComponent<Button>();
@@ -86,8 +88,8 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 					endedInter = hit.collider.GetComponent<ItemInteract>();
 					if (endedInter.detectingData == data)
 					{
-						endedInter.OnMatched.Invoke();
-						data.OnUsed.Invoke();
+						StartCoroutine(DelayInter(endedInter));
+						
 					}
 				}
 				else
@@ -124,5 +126,13 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		initPos = myRect.localPosition;
 	}
 
-	
+	IEnumerator DelayInter(ItemInteract inter)
+	{
+		PlayerCtrl.instance.clickPos = inter.transform.position;
+		yield return new WaitUntil(() => { return Physics2D.CircleCast(inter.transform.position, PlayerCtrl.instance.GetComponent<Interacter>().interDist, Vector2.zero, 0, layer); });
+		PlayerCtrl.instance.DeMove();
+		PlayerCtrl.instance.InteractAnim();
+		inter.OnMatched?.Invoke();
+		data.OnUsed.Invoke();
+	}
 }

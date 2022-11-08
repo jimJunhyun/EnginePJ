@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class InfoPanel : MonoBehaviour
+public class InfoPanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool isOpened;
 	public Image informatPanel;
@@ -13,11 +14,20 @@ public class InfoPanel : MonoBehaviour
     public TextMeshProUGUI itemDesc;
 
 	ItemManager.ItemData prevData;
+	bool focused = false;
 
 	private void Awake()
 	{
 		isOpened = false;
 		prevData = new ItemManager.ItemData(true);
+	}
+
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0) && !focused)
+		{
+			ForceOffPanel();
+		}
 	}
 
 	public void ForceOffPanel()
@@ -60,4 +70,13 @@ public class InfoPanel : MonoBehaviour
 		
 	}
 
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		focused = true;
+	}
+
+	public void OnPointerExit(PointerEventData eventData)
+	{
+		focused = false;
+	}
 }
