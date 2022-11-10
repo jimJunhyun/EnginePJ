@@ -125,11 +125,13 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
 	IEnumerator DelayAnyUse()
 	{
-		data.OnUsed.Invoke();
-		yield return new WaitForSeconds(data.useTime);
+		PlayerCtrl.instance.SetAnims(data.name);
 		myRect.localPosition = initPos;
 		myButton.interactable = true;
 		Cursor.visible = true;
+		yield return new WaitForSeconds(data.useTime);
+		data.OnUsed.Invoke();
+		
 	}
 
 	IEnumerator DelayInter(ItemInteract inter)

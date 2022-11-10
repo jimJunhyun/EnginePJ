@@ -14,7 +14,7 @@ public class PlayerCtrl : MonoBehaviour
 	public int layer;
 	public int layer2;
 	public int layer3;
-
+	
 	public float err;
     bool movable = true;
 	bool wallDet = false;
