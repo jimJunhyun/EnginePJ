@@ -42,6 +42,10 @@ public class InfoPanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
 	public void OnOffPanel(ItemManager.ItemData data)
 	{
+		if(data.uid < 0)
+		{
+			throw new System.Exception("존재하지 않는 아이템의 정보 확인 시도 감지됨.");
+		}
 		if (isOpened)
 		{
 			if(data.uid == prevData.uid)

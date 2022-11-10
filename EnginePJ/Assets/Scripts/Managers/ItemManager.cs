@@ -27,6 +27,7 @@ public class ItemManager : MonoBehaviour
 		public string desc { get; set;}
 		public Sprite icon { get; set;}
 		public bool anyUse { get; set;}
+		public float useTime { get;set;}
 		public GameManager.StageProgress progressReq { get; set;}
 		public UnityEvent OnUsed { get; set;}
 
@@ -37,6 +38,7 @@ public class ItemManager : MonoBehaviour
 			desc = "존재하지않음.";
 			icon = null;
 			anyUse = false;
+			useTime = 0;
 			progressReq = GameManager.StageProgress.None;
 			OnUsed = null;
 		}
@@ -69,8 +71,8 @@ public class ItemManager : MonoBehaviour
 		itemInterLayer = 1 << itemInterLayer;
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[(int)ItemIds.Box], anyUse = true, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.Box]} },
-			{((int)ItemIds.VideoTape), new ItemData(){uid = (int)ItemIds.VideoTape,name = "카세트테이프", desc = "오래된 카세트 테이프다. 왠지 익숙한 기분이다.", icon = icons[(int)ItemIds.VideoTape], anyUse = false, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.VideoTape]} },
+			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[(int)ItemIds.Box], anyUse = true, useTime = 1f, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.Box]} },
+			{((int)ItemIds.VideoTape), new ItemData(){uid = (int)ItemIds.VideoTape,name = "카세트테이프", desc = "오래된 카세트 테이프다. 왠지 익숙한 기분이다.", icon = icons[(int)ItemIds.VideoTape], anyUse = false, useTime = 1f, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.VideoTape]} },
 		};
 		foreach (var item in itemIdPairs.Keys)
 		{

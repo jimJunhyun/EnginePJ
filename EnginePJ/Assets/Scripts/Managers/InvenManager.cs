@@ -6,6 +6,7 @@ public class InvenManager : MonoBehaviour
 {
 	const int INVENTORY_SIZE = 10;
 
+	public InfoPanel panel;
 	List<ItemManager.ItemData> items = new List<ItemManager.ItemData>(new ItemManager.ItemData[10]);
 	List<ItemButton> slots = new List<ItemButton>(); 
 	int idx = 0;
@@ -19,6 +20,8 @@ public class InvenManager : MonoBehaviour
 	{
 		items[idx] = ItemManager.instance.itemIdPairs[itemId];
 		slots[idx].thisId = ItemManager.instance.itemIdPairs[itemId].uid;
+		panel.ForceOffPanel();
+		panel.OnOffPanel(items[idx]);
 		++idx;
 	}
 	public void ItemUse(int itemId)

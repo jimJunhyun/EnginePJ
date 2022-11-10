@@ -74,10 +74,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		{
 			if (data.anyUse)
 			{
-				data.OnUsed.Invoke();
-				myRect.localPosition = initPos;
-				myButton.interactable = true;
-				Cursor.visible = true;
+				StartCoroutine(DelayAnyUse());
 			}
 			else
 			{
@@ -126,13 +123,23 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		initPos = myRect.localPosition;
 	}
 
+	IEnumerator DelayAnyUse()
+	{
+		data.OnUsed.Invoke();
+		yield return new WaitForSeconds(data.useTime);
+		myRect.localPosition = initPos;
+		myButton.interactable = true;
+		Cursor.visible = true;
+	}
+
 	IEnumerator DelayInter(ItemInteract inter)
 	{
 		PlayerCtrl.instance.clickPos = inter.transform.position;
 		yield return new WaitUntil(() => { return Physics2D.CircleCast(inter.transform.position, PlayerCtrl.instance.GetComponent<Interacter>().interDist, Vector2.zero, 0, layer); });
 		PlayerCtrl.instance.DeMove();
 		PlayerCtrl.instance.InteractAnim();
-		inter.OnMatched?.Invoke();
 		data.OnUsed.Invoke();
+		yield return new WaitForSeconds(data.useTime);
+		inter.OnMatched?.Invoke();
 	}
 }

@@ -9,10 +9,17 @@ public class EnablePlayer : MonoBehaviour
 	Animator anim;
 	private void Start()
 	{
-		rend = GetComponent<SpriteRenderer>();
-		pRend = PlayerCtrl.instance.GetComponent<SpriteRenderer>();
-		anim = GetComponent<Animator>();
-		anim.enabled = false;
+		try
+		{
+			rend = GetComponent<SpriteRenderer>();
+			pRend = PlayerCtrl.instance.GetComponent<SpriteRenderer>();
+			anim = GetComponent<Animator>();
+			anim.enabled = false;
+		}
+		catch(System.NullReferenceException nullDetected)
+		{
+			Debug.Log($"초기화 실패. {nullDetected.Message}");
+		}
 	}
 	private void Update()
 	{
