@@ -12,7 +12,7 @@ public class InteractionManager : MonoBehaviour, IDragHandler, IEndDragHandler, 
 		GameObject obj;
 		if (obj = eventData.hovered.Find((x) => { return x.GetComponent<Interacts>(); }))
 		{
-			selPanel.gameObject.SetActive(true);
+			selPanel.OnPanel();
 			selPanel.SetFuncs(obj);
 			selPanel.transform.position = eventData.position;
 			PlayerCtrl.instance.DeMove();
@@ -20,7 +20,7 @@ public class InteractionManager : MonoBehaviour, IDragHandler, IEndDragHandler, 
 	}
 	public void OnPointerUp(PointerEventData eventData)
 	{
-		selPanel.gameObject.SetActive(false);
+		selPanel.OffPanel();
 		PlayerCtrl.instance.GoMove();
 	}
 
@@ -34,11 +34,10 @@ public class InteractionManager : MonoBehaviour, IDragHandler, IEndDragHandler, 
 		GameObject endReel;
 		if ((endReel = eventData.hovered.Find((x)=>{return x.GetComponent<DragEndFunc>(); })) != null)
 		{
-			
-			endReel.GetComponent<DragEndFunc>().OnMouseUp?.Invoke(PlayerCtrl.instance.ResetInterAnim);
-			
+			DragEndFunc endFunc = endReel.GetComponent<DragEndFunc>();
+			endFunc.OnMouseUp?.Invoke(PlayerCtrl.instance.ResetInterAnim);
 		}
-		selPanel.gameObject.SetActive(false);
+		selPanel.OffPanel();
 		PlayerCtrl.instance.GoMove();
 	}
 

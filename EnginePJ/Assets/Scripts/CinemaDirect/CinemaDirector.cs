@@ -32,6 +32,11 @@ public class CinemaDirector : MonoBehaviour
 			++idx;
 		}
 	}
+	public void SkipAll()
+	{
+		idx = dircs.Count - 1;
+		dircs[idx].Invoke();
+	}
 	public void Delay(float t)
 	{
 		processes += 1;

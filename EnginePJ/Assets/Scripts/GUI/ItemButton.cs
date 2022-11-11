@@ -18,9 +18,11 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 	RectTransform myRect;
 	ItemManager.ItemData data;
 	Vector3 initPos;
+	int layer = 11;
 
 	private void Awake()
 	{
+		layer = 1 << layer;
 		myImg = GetComponent<Image>();
 		myRect = myImg.rectTransform;
 		myButton = GetComponent<Button>();
@@ -52,8 +54,8 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		
 	}
 	public void PressAct()
-	{
-		if(data.uid > 0)
+	{ 
+		if(data.uid >= 0)
 		{
 			OnPressInfo.Invoke(data);
 		}
@@ -72,10 +74,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		{
 			if (data.anyUse)
 			{
-				data.OnUsed.Invoke();
-				myRect.localPosition = initPos;
-				myButton.interactable = true;
-				Cursor.visible = true;
+				StartCoroutine(DelayAnyUse());
 			}
 			else
 			{
@@ -86,13 +85,14 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 					endedInter = hit.collider.GetComponent<ItemInteract>();
 					if (endedInter.detectingData == data)
 					{
-						endedInter.OnMatched.Invoke();
-						data.OnUsed.Invoke();
+						StartCoroutine(DelayInter(endedInter));
+						
 					}
 				}
 				else
 				{
 					ItemManager.instance.WrongInter();
+					OnWrongInter?.Invoke();
 				}
 				myRect.localPosition = initPos;
 				myButton.interactable = true;
@@ -102,6 +102,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		else
 		{
 			ItemManager.instance.WrongInter();
+			OnWrongInter?.Invoke();
 			myRect.localPosition = initPos;
 			myButton.interactable = true;
 			Cursor.visible = true;
@@ -122,5 +123,25 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 		initPos = myRect.localPosition;
 	}
 
-	
+	IEnumerator DelayAnyUse()
+	{
+		PlayerCtrl.instance.SetAnims(data.name);
+		myRect.localPosition = initPos;
+		myButton.interactable = true;
+		Cursor.visible = true;
+		yield return new WaitForSeconds(data.useTime);
+		data.OnUsed.Invoke();
+		
+	}
+
+	IEnumerator DelayInter(ItemInteract inter)
+	{
+		PlayerCtrl.instance.clickPos = inter.transform.position;
+		yield return new WaitUntil(() => { return Physics2D.CircleCast(inter.transform.position, PlayerCtrl.instance.GetComponent<Interacter>().interDist, Vector2.zero, 0, layer); });
+		PlayerCtrl.instance.DeMove();
+		PlayerCtrl.instance.InteractAnim();
+		data.OnUsed.Invoke();
+		yield return new WaitForSeconds(data.useTime);
+		inter.OnMatched?.Invoke();
+	}
 }

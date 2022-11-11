@@ -36,6 +36,12 @@ public class ShowTxtOnDark : MonoBehaviour
 		StartCoroutine(EraseShow(txt));
 	}
 
+	public void ImmediateEraseShow(string txt)
+	{
+		CinemaDirector.instance.processes += 1;
+		StartCoroutine(ImmediateEraseAndShow(txt));
+	}
+
 	public void Show(string txt)
 	{
 		CinemaDirector.instance.processes += 1;
@@ -46,6 +52,10 @@ public class ShowTxtOnDark : MonoBehaviour
 	{
 		CinemaDirector.instance.processes += 1;
 		StartCoroutine(Eraser(leaveLen));
+	}
+	public void ImmediateErase()
+	{
+		txt.text = "";
 	}
 
 	public void SetPreDel(float val)
@@ -59,6 +69,13 @@ public class ShowTxtOnDark : MonoBehaviour
 	public void SetPostDel(float val)
 	{
 		dels.z = val;
+	}
+
+	IEnumerator ImmediateEraseAndShow(string showTxt)
+	{
+		yield return new WaitUntil(() => { return Input.GetMouseButtonDown(0); });
+		ImmediateErase();
+		yield return StartCoroutine(DelayShowDelay(showTxt));
 	}
 
 	IEnumerator EraseShow(string showTxt)

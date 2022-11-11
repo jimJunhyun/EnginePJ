@@ -1,22 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GlowAura : MonoBehaviour
 {
     public float lerpTime;
 	[Range(0,0.08f)]
 	public float glowMax;
+	public bool isUI = false;
 
 	SpriteRenderer sprend;
+	Image img;
 	Material glowMat;
 	Coroutine starter;
 	Coroutine ender;
 	// Update is called once per frame
 	private void Awake()
 	{
-		sprend = GetComponent<SpriteRenderer>();
-		glowMat = sprend.material;
+		if (!isUI)
+		{
+			sprend = GetComponent<SpriteRenderer>();
+			glowMat = sprend.material;
+		}
+		else
+		{
+			img = GetComponent<Image>(); 
+			glowMat = img.material;
+		}
+
+		
 		glowMat.SetFloat("GlowDep", 0f);
 		glowMat.SetInt("GlowDis", 1);
 	}

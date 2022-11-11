@@ -17,11 +17,28 @@ public class InterPanel : MonoBehaviour
 	}
 	private void Start()
 	{
-		gameObject.SetActive(false);
+		OffPanel();
 	}
 	private void OnEnable()
 	{
 		GetComponentsInChildren(invokeActers);
+		
+	}
+
+	public void OffPanel()
+	{
+		for (int i = 0; i < invokeActers.Count; i++)
+		{
+			invokeActers[i].OffImg();
+		}
+	}
+
+	public void OnPanel()
+	{
+		for (int i = 0; i < invokeActers.Count; i++)
+		{
+			invokeActers[i].OnImg();
+		}
 		StartCoroutine(Fanning());
 	}
 
