@@ -54,12 +54,15 @@ Material:
     m_Floats:
     - GlowDep: 0.02
     - GlowDis: 1
+    - Vector1_5bb7bcea7f4141478128b864b721491c: 7.79
     - Vector1_7b0b0e4126c14bc987cec301fbe37ff3: 50
     - Vector1_9d32e46d8f7a411dada8ab4cf6a9258a: 8.18
+    - Vector1_be69ddba0a1a4168a243ae533e5f48eb: 2
     - _EnableExternalAlpha: 0
     m_Colors:
     - GlowCol: {r: 0, g: 16, b: 3.576471, a: 0}
-    - Vector2_e41bb5355e454f8a962868b46668d620: {r: 0.25, g: -0.25, b: 0, a: 0}
+    - Vector2_3aa120434d78485e875d86b388c92b9c: {r: 0.02, g: 0.02, b: 0, a: 0}
+    - Vector2_e41bb5355e454f8a962868b46668d620: {r: 0.25, g: 0.25, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
