@@ -5,29 +5,46 @@ using Cinemachine;
 
 public class CamTrans : MonoBehaviour
 {
-    const int USING = 15;
-    const int NOTUSING = 10;
+    public const int USING = 15;
+    public const int NOTUSING = 10;
     public CinemachineVirtualCamera currentCam;
 
     CinemachineBrain myBrain;
+    float delay = 0;
 
 	private void Awake()
 	{
 		myBrain = GetComponent<CinemachineBrain>();
 	}
-
+    public void SetDel(float t)
+	{
+        delay = t;
+	}
 	public void ChangeCam(CinemachineVirtualCamera cam)
 	{
-        myBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
-        myBrain.m_DefaultBlend.m_Time = 1.5f;
-        currentCam.Priority = NOTUSING;
-        cam.Priority = USING;
+        StartCoroutine(DelayChange(cam, delay, false));
 	}
-    public void InstantChangeCan(CinemachineVirtualCamera cam)
+    public void InstantChangeCam(CinemachineVirtualCamera cam)
 	{
-        myBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+        
+        StartCoroutine(DelayChange(cam, delay, true));
+        
+    }
+    IEnumerator DelayChange(CinemachineVirtualCamera cam, float t, bool isInstant)
+	{
+        yield return new WaitForSeconds(t);
+		if (isInstant)
+		{
+            myBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+            transform.position = cam.transform.position;
+		}
+		else
+		{
+            myBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
+            myBrain.m_DefaultBlend.m_Time = 1.5f;
+		}
+        
         currentCam.Priority = NOTUSING;
         cam.Priority = USING;
-        transform.position = cam.transform.position;
     }
 }

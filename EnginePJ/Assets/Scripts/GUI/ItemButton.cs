@@ -125,7 +125,7 @@ public class ItemButton : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
 	IEnumerator DelayAnyUse()
 	{
-		PlayerCtrl.instance.SetAnims(data.name);
+		PlayerCtrl.instance.SetAnims(data.name, data.useTime);
 		myRect.localPosition = initPos;
 		myButton.interactable = true;
 		Cursor.visible = true;

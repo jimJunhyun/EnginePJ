@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
 		Home,
 		OutHome,
-
+		Alley,
 	}
 
 	public StageProgress curProgress{get; private set; }
