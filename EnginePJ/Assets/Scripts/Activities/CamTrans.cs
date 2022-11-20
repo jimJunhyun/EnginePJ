@@ -36,7 +36,6 @@ public class CamTrans : MonoBehaviour
 		if (isInstant)
 		{
             myBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
-            transform.position = cam.transform.position;
 		}
 		else
 		{
