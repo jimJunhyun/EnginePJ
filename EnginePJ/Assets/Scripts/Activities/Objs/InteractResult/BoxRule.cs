@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class BoxRule : MonoBehaviour
+public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	public enum Symbols 
 	{
@@ -25,9 +26,13 @@ public class BoxRule : MonoBehaviour
 	bool matched;
 	bool solved =false;
 
+	bool focused = true;
+	GameObject undermostPanel;
+
 	private void Awake()
 	{
 		GetComponentsInChildren<Switches>(connected);
+		undermostPanel = transform.parent.gameObject;
 		solved = false;
 	}
 	private void Update()
@@ -45,10 +50,23 @@ public class BoxRule : MonoBehaviour
 				solved = true;
 			}
 		}
-		
+		if (Input.GetMouseButtonDown(0) && !focused)
+		{
+			undermostPanel.SetActive(false);
+		}
 	}
 	public void TempF()
 	{
 		Debug.Log("¿­¾ú´Ù.");
+	}
+
+	public void OnPointerExit(PointerEventData eventData)
+	{
+		focused = false;
+	}
+
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		focused = true;
 	}
 }

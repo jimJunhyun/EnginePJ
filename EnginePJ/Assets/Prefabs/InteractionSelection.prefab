@@ -55,7 +55,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95145258896345110}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -110,6 +110,7 @@ MonoBehaviour:
       m_Calls: []
   myImg: {fileID: 0}
   uiLoader: {fileID: 0}
+  aura: {fileID: 0}
 --- !u!1 &95145258960724703
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,8 +146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7000196, y: -0.50001955}
-  m_SizeDelta: {x: -41.3993, y: -41.3993}
+  m_AnchoredPosition: {x: -1.7000198, y: -0.5000191}
+  m_SizeDelta: {x: -41.3993, y: -54.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &95145258960724696
 CanvasRenderer:
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a0428a253a3cceb4c8a1b6667f75d15f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -269,7 +270,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  fDistance: 55
+  fDistance: 66
   MinAngle: 0
   MaxAngle: 0
   StartAngle: 60
@@ -398,6 +399,7 @@ MonoBehaviour:
       m_Calls: []
   myImg: {fileID: 0}
   uiLoader: {fileID: 0}
+  aura: {fileID: 0}
 --- !u!1 &588946424666234953
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,8 +435,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7000196, y: -0.50001955}
-  m_SizeDelta: {x: -41.3993, y: -41.3993}
+  m_AnchoredPosition: {x: -1.7000198, y: -0.5000191}
+  m_SizeDelta: {x: -41.3993, y: -54.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8263121575151506110
 CanvasRenderer:
@@ -522,8 +524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7000196, y: -0.50001955}
-  m_SizeDelta: {x: -41.3993, y: -41.3993}
+  m_AnchoredPosition: {x: -1.7000198, y: -0.5000191}
+  m_SizeDelta: {x: -41.3993, y: -54.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1293771428274001972
 CanvasRenderer:
@@ -686,6 +688,7 @@ MonoBehaviour:
       m_Calls: []
   myImg: {fileID: 0}
   uiLoader: {fileID: 0}
+  aura: {fileID: 0}
 --- !u!1 &3635849242237176514
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +799,7 @@ MonoBehaviour:
       m_Calls: []
   myImg: {fileID: 0}
   uiLoader: {fileID: 0}
+  aura: {fileID: 0}
 --- !u!1 &4173680050003834804
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,8 +835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7000196, y: -0.50001955}
-  m_SizeDelta: {x: -41.3993, y: -41.3993}
+  m_AnchoredPosition: {x: -1.7000198, y: -0.5000191}
+  m_SizeDelta: {x: -41.3993, y: -54.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7640078572059847000
 CanvasRenderer:
@@ -920,8 +924,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7000196, y: -0.50001955}
-  m_SizeDelta: {x: -41.3993, y: -41.3993}
+  m_AnchoredPosition: {x: -1.7000198, y: -0.5000191}
+  m_SizeDelta: {x: -41.3993, y: -54.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3375908621683404606
 CanvasRenderer:
@@ -1009,8 +1013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7000196, y: -0.50001955}
-  m_SizeDelta: {x: -41.3993, y: -41.3993}
+  m_AnchoredPosition: {x: -1.7000198, y: -0.5000191}
+  m_SizeDelta: {x: -41.3993, y: -54.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7642345088052772832
 CanvasRenderer:
@@ -1173,6 +1177,7 @@ MonoBehaviour:
       m_Calls: []
   myImg: {fileID: 0}
   uiLoader: {fileID: 0}
+  aura: {fileID: 0}
 --- !u!1 &8686410298052408383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,3 +1288,4 @@ MonoBehaviour:
       m_Calls: []
   myImg: {fileID: 0}
   uiLoader: {fileID: 0}
+  aura: {fileID: 0}

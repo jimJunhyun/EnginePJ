@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 		Home,
 		OutHome,
 		Alley,
+		CandyHouseHallway,
+		CandyHouseRoom,
+
 	}
 
 	public StageProgress curProgress{get; private set; }
