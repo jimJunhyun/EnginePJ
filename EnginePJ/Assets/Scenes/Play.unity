@@ -1018,8 +1018,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -102.6, y: 0}
-  m_SizeDelta: {x: 50.8282, y: 49.862}
+  m_AnchoredPosition: {x: -114.11, y: -0.0000038147}
+  m_SizeDelta: {x: 106.66, y: 104.6303}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117657023
 MonoBehaviour:
@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curSymbol: 0
+  singleSymOff: -0.23
 --- !u!114 &117657024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,7 +1054,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1102,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1c0cf1b1e71293d43b7d2fcb82941512, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4903,7 +4904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c8b82e4b719f7449bcc11e1756694c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matches: 00000000020000000100000004000000
+  matches: 0300000006000000090000000c000000
   onMatched:
     m_PersistentCalls:
       m_Calls:
@@ -10846,6 +10847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curSymbol: 0
+  singleSymOff: 0
 --- !u!114 &1607944989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10993,6 +10995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curSymbol: 0
+  singleSymOff: 0
 --- !u!114 &1608690030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11375,6 +11378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curSymbol: 0
+  singleSymOff: 0
 --- !u!114 &1688168077
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,12 +9,11 @@ public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public enum Symbols 
 	{
 		None = -1,
-
-		Circle,
-		Rectangle,
-		Triangle,
-		Pentagon,
-		Hexagon,
+		
+		Butterfly,
+		Cat,
+		Goat,
+		Fish,
 
 		Max
 	}
