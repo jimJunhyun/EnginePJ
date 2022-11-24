@@ -18,6 +18,9 @@ public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		Max
 	}
 
+	public float singleSymbolOffset = -0.23f;
+	public float LerpMoveTime = 1f;
+
 	public List<Symbols> matches;
 	public UnityEvent onMatched;
 
