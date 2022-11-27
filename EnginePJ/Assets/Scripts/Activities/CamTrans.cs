@@ -42,8 +42,9 @@ public class CamTrans : MonoBehaviour
             myBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.EaseInOut;
             myBrain.m_DefaultBlend.m_Time = 1.5f;
 		}
-        
-        currentCam.Priority = NOTUSING;
         cam.Priority = USING;
+        currentCam.Priority  =NOTUSING;
+        currentCam = cam;
+        Debug.Log("ÀüÈ¯µÊ." + currentCam.name);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+	#region º¯¼ö
 	public enum Symbols 
 	{
 		None = -1,
@@ -30,7 +31,7 @@ public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	bool focused = true;
 	GameObject undermostPanel;
-
+	#endregion
 	private void Awake()
 	{
 		GetComponentsInChildren<Switches>(connected);
