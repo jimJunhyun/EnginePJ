@@ -13,6 +13,8 @@ public class InfoPanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDesc;
 
+	public float waitTime;
+
 	ItemManager.ItemData prevData;
 	bool focused = false;
 

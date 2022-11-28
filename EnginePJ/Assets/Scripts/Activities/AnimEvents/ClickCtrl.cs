@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ClickCtrl : MonoBehaviour
 {
-    bool enable = false;
+    public bool enable = false;
     public UnityEvent OnClick;
     public void Activate()
 	{

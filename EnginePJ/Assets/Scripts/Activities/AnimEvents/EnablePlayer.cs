@@ -21,13 +21,6 @@ public class EnablePlayer : MonoBehaviour
 			Debug.Log($"초기화 실패. {nullDetected.Message}");
 		}
 	}
-	private void Update()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			anim.enabled = true;
-		}
-	}
 	public void UngrantPlayer()
 	{
 		PlayerCtrl.instance.enabled = false;
