@@ -19,6 +19,7 @@ public class ItemManager : MonoBehaviour
 		VideoTape,
 		Lighter,
 		Doll,
+		Note,
 
 	}
 
@@ -73,10 +74,11 @@ public class ItemManager : MonoBehaviour
 		itemInterLayer = 1 << itemInterLayer;
 		itemIdPairs = new Dictionary<int, ItemData>()
 		{
-			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "골판지 상자다. 덜컹거리는 것이 안에 무언가 든 것 같다.", icon = icons[(int)ItemIds.Box], anyUse = true, useTime = 1f, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.Box]} },
-			{((int)ItemIds.VideoTape), new ItemData(){uid = (int)ItemIds.VideoTape,name = "카세트테이프", desc = "오래된 카세트 테이프다. 왠지 익숙한 기분이다.", icon = icons[(int)ItemIds.VideoTape], anyUse = false, useTime = 1f, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.VideoTape]} },
+			{((int)ItemIds.Box), new ItemData(){uid = (int)ItemIds.Box,name = "상자", desc = "기억하고 싶지 않은 과거의 흔적이 담긴 박스이다.", icon = icons[(int)ItemIds.Box], anyUse = true, useTime = 1f, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.Box]} },
+			{((int)ItemIds.VideoTape), new ItemData(){uid = (int)ItemIds.VideoTape,name = "카세트테이프", desc = "나의 어릴적 모습이 담겨있는 기억의 조각이다.", icon = icons[(int)ItemIds.VideoTape], anyUse = false, useTime = 1f, progressReq = GameManager.StageProgress.Home, OnUsed = events[(int)ItemIds.VideoTape]} },
 			{((int)ItemIds.Lighter), new ItemData(){uid = (int)ItemIds.Lighter,name = "라이터", desc = "낡은 라이터다. 호랑이 그림이 인상적이다.", icon = icons[(int)ItemIds.Lighter], anyUse = true, useTime = 0.5f, progressReq = GameManager.StageProgress.None, OnUsed = events[(int)ItemIds.Lighter]} },
 			{((int)ItemIds.Doll), new ItemData(){uid = (int)ItemIds.Doll,name = "인형", desc = "오래된 인형이다. 누군가의 추억이 담겨있다.", icon = icons[(int)ItemIds.Doll], anyUse = false, useTime = 0.5f, progressReq = GameManager.StageProgress.Alley, OnUsed = events[(int)ItemIds.Doll]} },
+			{((int)ItemIds.Note), new ItemData(){uid = (int)ItemIds.Note,name = "공책", desc = "고등학교 시절 만든 포트폴리오이다.", icon = icons[(int)ItemIds.Note], anyUse = false, useTime = 0.5f, progressReq = GameManager.StageProgress.None, OnUsed = events[(int)ItemIds.Note]} },
 		};
 	}
 

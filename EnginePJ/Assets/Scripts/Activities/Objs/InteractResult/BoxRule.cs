@@ -53,16 +53,11 @@ public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 				solved = true;
 			}
 		}
-		if ((Input.GetMouseButtonDown(0) && !focused) || Input.GetKeyDown(KeyCode.Escape))
+		if ((Input.GetMouseButtonDown(0) && !focused))
 		{
 			undermostPanel.SetActive(false);
 		}
 	}
-	public void TempF()
-	{
-		Debug.Log("¿­¾ú´Ù.");
-	}
-
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		focused = false;

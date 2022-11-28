@@ -15,14 +15,26 @@ public class InvenManager : MonoBehaviour
 	{
 		GetComponentsInChildren(slots);
 	}
-
+	IEnumerator PanelAfterClick()
+	{
+		yield return new WaitUntil(()=>Input.GetMouseButtonDown(0));
+		yield return new WaitForSeconds(0.25f);
+		panel.ForceOffPanel();
+		panel.OnOffPanel(items[idx]);
+	}
 	public void ItemGet(int itemId)
 	{
 		items[idx] = ItemManager.instance.itemIdPairs[itemId];
 		slots[idx].thisId = ItemManager.instance.itemIdPairs[itemId].uid;
-		panel.ForceOffPanel();
-		panel.OnOffPanel(items[idx]);
-		++idx;
+		if (panel.isOpened)
+		{
+			StartCoroutine(PanelAfterClick());
+		}
+		else
+		{
+			panel.OnOffPanel(items[idx]);
+			++idx;
+		}
 	}
 	public void ItemUse(int itemId)
 	{

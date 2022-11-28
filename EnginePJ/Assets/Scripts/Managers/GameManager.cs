@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 		Alley,
 		CandyHouseHallway,
 		CandyHouseRoom,
+		FrontApartment,
+		InsideApartment,
+		InsideElevator,
 
 	}
 
