@@ -11,10 +11,11 @@ public class PlayerCtrl : MonoBehaviour
 
     public float speed;
 	public float rayDist;
-	public int layer;
-	public int layer2;
-	public int layer3;
-	
+	public LayerMask notToDetect;
+	//public int layer;
+	//public int layer2;
+	//public int layer3;
+	//public int layer4;
 	public float err;
     bool movable = true;
 	bool wallDet = false;
@@ -22,6 +23,7 @@ public class PlayerCtrl : MonoBehaviour
 	int dirX = 1;
 	Vector3 initScale;
 	Animator myAnim;
+	AudioSource walkSound;
 
 	private void Awake()
 	{
@@ -30,11 +32,15 @@ public class PlayerCtrl : MonoBehaviour
 		prevSpeed = speed;
 		myAnim = GetComponent<Animator>();
 		initScale = transform.localScale;
-		layer = ~(1 << layer);
-		layer2 = ~(1 << layer2);
-		layer3 = ~(1<< layer3);
-		layer &= layer2;
-		layer &= layer3;
+		//layer = ~(1 << layer);
+		//layer2 = ~(1 << layer2);
+		//layer3 = ~(1<< layer3);
+		//layer4 = ~(1<< layer4);
+		//layer &= layer2;
+		//layer &= layer3;
+		//layer &= layer4;
+		notToDetect = ~notToDetect;
+		walkSound = GetComponent<AudioSource>();
 		myAnim.SetBool("CinemaIdle", false);
 	}
 
@@ -47,14 +53,16 @@ public class PlayerCtrl : MonoBehaviour
 			dir = clickPos - (Vector2)transform.position;
 
 		}
-		if ( Physics2D.RaycastAll(transform.position, new Vector2(dir.x, 0), rayDist, layer).Length > 0)
+		if ( Physics2D.RaycastAll(transform.position, new Vector2(dir.x, 0), rayDist, notToDetect).Length > 0)
 		{
+			Debug.Log(Physics2D.RaycastAll(transform.position, new Vector2(dir.x, 0), rayDist, notToDetect)[0].transform.name);
 			if(speed != 0)
 			{
 				prevSpeed = speed;
 				speed = 0;
 				myAnim.SetBool("Walking", false);
 				myAnim.SetBool("Idling", true);
+				walkSound.Stop();
 			}
 			wallDet = true;
 		}
@@ -80,12 +88,15 @@ public class PlayerCtrl : MonoBehaviour
 				dirX = 0;
 				myAnim.SetBool("Walking", false);
 				myAnim.SetBool("Idling", true);
+				walkSound.Stop();
 			}
 			else if (dir.x > 0)
 			{
 				dirX = 1;
 				myAnim.SetBool("Walking", true);
 				myAnim.SetBool("Idling", false);
+				if(!walkSound.isPlaying)
+					walkSound.Play();
 				transform.localScale = new Vector3(-initScale.x, initScale.y, initScale.z);
 			}
 			else
@@ -93,6 +104,8 @@ public class PlayerCtrl : MonoBehaviour
 				dirX = -1;
 				myAnim.SetBool("Walking", true);
 				myAnim.SetBool("Idling", false);
+				if (!walkSound.isPlaying)
+					walkSound.Play();
 				transform.localScale = initScale;
 			}
 			
@@ -105,6 +118,7 @@ public class PlayerCtrl : MonoBehaviour
 	{
 		myAnim.SetBool("Walking", false);
 		myAnim.SetBool("Interacting", true);
+		walkSound.Stop();
 		myAnim.SetBool("Idling", false);
 	}
 
@@ -113,24 +127,26 @@ public class PlayerCtrl : MonoBehaviour
 		myAnim.SetBool("Interacting", false);
 	}
 
-	public void SetAnims(string name)
+	public void SetAnims(string name, float waitTime)
 	{
 		myAnim.SetBool(name, true);
+		MoveDisable(waitTime);
 	}
 	public void ResetAnims(string name)
 	{
 		myAnim.SetBool(name, false);
 	}
 
-	public void ResetDir()
+	public void ResetDir(float t)
 	{
-		clickPos = transform.position;
+		StartCoroutine(DelResetDir(t));
 	}
 
 	public void DeMove()
 	{
 		myAnim.SetBool("Walking", false);
-		ResetDir();
+		walkSound.Stop();
+		ResetDir(0);
         movable = false;
 	}
     public void GoMove()
@@ -147,6 +163,11 @@ public class PlayerCtrl : MonoBehaviour
         DeMove();
         yield return new WaitForSeconds(time);
         GoMove();
+	}
+	IEnumerator DelResetDir(float t)
+	{
+		yield return new WaitForSeconds(t);
+		clickPos = transform.position;
 	}
 
 	public bool Approximate(float a, float b, float err)

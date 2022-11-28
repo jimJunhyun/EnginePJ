@@ -40,4 +40,24 @@ public class EnablePlayer : MonoBehaviour
 		rend.enabled = false;
 		pRend.enabled = true;
 	}
+	public void DelayGrant(float d)
+	{
+		StartCoroutine(DelayCtrl(d, true));
+	}
+	public void DelayUnGrant(float d)
+	{
+		StartCoroutine(DelayCtrl(d, false));
+	}
+	IEnumerator DelayCtrl(float d, bool grant)
+	{
+		yield return new WaitForSeconds(d);
+		if (grant)
+		{
+			GrantPlayer();
+		}
+		else
+		{
+			UngrantPlayer();
+		}
+	}
 }

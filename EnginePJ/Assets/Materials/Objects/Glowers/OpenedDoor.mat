@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - GlowTex:
-        m_Texture: {fileID: 2800000, guid: 3313dbf8b7230294ea658792a57e9891, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5f08ed2f98624da43b6808b6899fcd61, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTex:

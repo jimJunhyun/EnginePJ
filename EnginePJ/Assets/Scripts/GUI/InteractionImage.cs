@@ -9,8 +9,8 @@ public class InteractionImage : MonoBehaviour
 	public Image myImg;
     Dictionary<Interacts.AllInteractions, string> actPathNamePair = new Dictionary<Interacts.AllInteractions, string>
 	{
-		{ Interacts.AllInteractions.Look, "Eye" },
-		{ Interacts.AllInteractions.Obtain, "Hand" },
+		{ Interacts.AllInteractions.Look, "EyeIcon" },
+		{ Interacts.AllInteractions.Obtain, "HandIcon" },
 	};
 
 	private void Awake()
