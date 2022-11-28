@@ -23,6 +23,7 @@ public class PlayerCtrl : MonoBehaviour
 	int dirX = 1;
 	Vector3 initScale;
 	Animator myAnim;
+	AudioSource walkSound;
 
 	private void Awake()
 	{
@@ -39,6 +40,7 @@ public class PlayerCtrl : MonoBehaviour
 		//layer &= layer3;
 		//layer &= layer4;
 		notToDetect = ~notToDetect;
+		walkSound = GetComponent<AudioSource>();
 		myAnim.SetBool("CinemaIdle", false);
 	}
 
@@ -60,6 +62,7 @@ public class PlayerCtrl : MonoBehaviour
 				speed = 0;
 				myAnim.SetBool("Walking", false);
 				myAnim.SetBool("Idling", true);
+				walkSound.Stop();
 			}
 			wallDet = true;
 		}
@@ -85,12 +88,15 @@ public class PlayerCtrl : MonoBehaviour
 				dirX = 0;
 				myAnim.SetBool("Walking", false);
 				myAnim.SetBool("Idling", true);
+				walkSound.Stop();
 			}
 			else if (dir.x > 0)
 			{
 				dirX = 1;
 				myAnim.SetBool("Walking", true);
 				myAnim.SetBool("Idling", false);
+				if(!walkSound.isPlaying)
+					walkSound.Play();
 				transform.localScale = new Vector3(-initScale.x, initScale.y, initScale.z);
 			}
 			else
@@ -98,6 +104,8 @@ public class PlayerCtrl : MonoBehaviour
 				dirX = -1;
 				myAnim.SetBool("Walking", true);
 				myAnim.SetBool("Idling", false);
+				if (!walkSound.isPlaying)
+					walkSound.Play();
 				transform.localScale = initScale;
 			}
 			
@@ -110,6 +118,7 @@ public class PlayerCtrl : MonoBehaviour
 	{
 		myAnim.SetBool("Walking", false);
 		myAnim.SetBool("Interacting", true);
+		walkSound.Stop();
 		myAnim.SetBool("Idling", false);
 	}
 
@@ -136,6 +145,7 @@ public class PlayerCtrl : MonoBehaviour
 	public void DeMove()
 	{
 		myAnim.SetBool("Walking", false);
+		walkSound.Stop();
 		ResetDir(0);
         movable = false;
 	}
