@@ -53,7 +53,7 @@ public class BoxRule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 				solved = true;
 			}
 		}
-		if (Input.GetMouseButtonDown(0) && !focused)
+		if ((Input.GetMouseButtonDown(0) && !focused) || Input.GetKeyDown(KeyCode.Escape))
 		{
 			undermostPanel.SetActive(false);
 		}
